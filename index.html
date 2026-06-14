@@ -1,231 +1,1228 @@
 <!DOCTYPE html>
+<!-- 
+    DOCTYPE html → Le dice al navegador que use el modo estándar HTML5
+    SIN ESTO: La página podría renderizarse en "modo quirks" y verse mal
+-->
 <html lang="es">
+<!-- 
+    lang="es" → Indica que el contenido está en español
+    IMPORTANTE para: lectores de pantalla, traductores automáticos y SEO
+-->
 
 <head>
-    <!-- META BÁSICOS -->
+    <!-- 
+        <head> → Contiene metadatos y configuraciones que NO se ven directamente
+        pero son FUNDAMENTALES para el funcionamiento correcto
+    -->
+    
+    <!-- JUEGO DE CARACTERES UNIVERSAL -->
     <meta charset="UTF-8">
-    <!-- VIEWPORT: Crucial para móviles. width=device-width ajusta al ancho del dispositivo.
-         initial-scale=1 establece el zoom inicial. Esto evita que el sitio se vea
-         como versión de escritorio encogida en teléfonos -->
+    <!-- 
+        charset="UTF-8" → Permite usar caracteres especiales como: ñ, á, é, í, ó, ú, ü, ¿, ¡
+        SIN ESTO: Aparecerían símbolos extraños en lugar de tildes y eñes
+    -->
+    
+    <!-- CONFIGURACIÓN DE VISUALIZACIÓN EN MÓVILES -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+        viewport → CRUCIAL para móviles
+        width=device-width → El ancho de la página se ajusta al ancho del dispositivo
+        initial-scale=1.0 → Comienza sin zoom (nivel normal)
+        SIN ESTO: En celular se vería como una página de escritorio miniaturizada
+    -->
     
-    <!-- COMPATIBILIDAD CON IE/EDGE LEGACY -->
+    <!-- TÍTULO DE LA PÁGINA (PESTAÑA DEL NAVEGADOR + GOOGLE) -->
+    <title>CORSAIN | Ingeniería y Soluciones en Saneamiento</title>
+    <!-- 
+        Este texto aparece en:
+        - La pestaña del navegador
+        - Resultados de búsqueda de Google
+        - Cuando guardas la página en favoritos
+    -->
+    
+    <!-- COMPATIBILIDAD CON INTERNET EXPLORER -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Fuerza a IE a usar el mejor modo disponible -->
     
-    <!-- SEO BÁSICO PARA MÓVILES -->
-    <meta name="description" content="CORSAIN - Ingeniería y soluciones integrales en saneamiento, agua potable e instalaciones sanitarias">
-    <meta name="theme-color" content="#0066CC"> <!-- Color de la barra de navegador en móvil -->
+    <!-- DESCRIPCIÓN PARA BUSCADORES (SEO) -->
+    <meta name="description" content="CORSAIN - Soluciones integrales en saneamiento, agua potable e instalaciones sanitarias. Más de 20 años de experiencia en ingeniería.">
+    <!-- 
+        Esta descripción aparece debajo del título en Google
+        Debe ser atractiva y contener palabras clave
+    -->
     
-    <!-- iOS ESPECÍFICO: Permite guardar en pantalla de inicio como web app -->
+    <!-- COLOR DE LA BARRA DEL NAVEGADOR EN MÓVILES -->
+    <meta name="theme-color" content="#0b1f33">
+    <!-- 
+        Cambia el color de la barra superior en Chrome Android
+        y en la barra de estado en iOS
+    -->
+    
+    <!-- META ETIQUETAS PARA iOS (APPLE) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- Permite que la página funcione como una app al guardarla en inicio -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Estilo de la barra de estado en iOS -->
     <meta name="apple-mobile-web-app-title" content="CORSAIN">
+    <!-- Nombre corto que aparece bajo el ícono en iOS -->
     
-    <title>CORSAIN | Ingeniería y Soluciones</title>
-
-    <!-- ESTILOS PRINCIPALES -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- ICONO DE LA PÁGINA (FAVICON) -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <!-- Ícono que aparece en la pestaña del navegador -->
     
-    <!-- FUENTES DE GOOGLE: Manrope con pesos optimizados para performance móvil -->
-    <!-- display=swap evita el FOIT (Flash Of Invisible Text) mostrando fuente del sistema mientras carga -->
+    <!-- CARGA DE FUENTES DE GOOGLE (MÉTODO 1: LINK) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 
+        preconnect → Establece conexión temprana con servidores de Google
+        Mejora velocidad de carga de fuentes
+    -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- 
+        display=swap → Muestra texto con fuente del sistema mientras carga Manrope
+        Evita el "flash de texto invisible" (FOIT)
+    -->
     
-    <!-- PRELOAD DE IMÁGENES CRÍTICAS: Mejora LCP en móviles -->
-    <link rel="preload" as="image" href="assets/logo.png">
+    <!-- PRECARGA DE IMÁGENES CRÍTICAS (LCP OPTIMIZATION) -->
     <link rel="preload" as="image" href="assets/fig_head.jpg">
+    <!-- 
+        preload → Prioriza la carga de esta imagen sobre otros recursos
+        LCP = Largest Contentful Paint (métrica de velocidad de Google)
+    -->
+    <link rel="preload" as="image" href="assets/logo.png">
+    
+    <!-- ============================================ -->
+    <!-- ESTILOS CSS INTERNOS (MÉTODO 2: <style>)    -->
+    <!-- ============================================ -->
+    <style>
+        /* 
+            Aquí va todo el CSS que controla:
+            - Colores
+            - Tamaños
+            - Posiciones
+            - Animaciones
+            - Diseño responsive
+        */
+        
+        /* ============================================ */
+        /* 1. FUENTE DE RESPALDO (FALLBACK LOCAL)      */
+        /* ============================================ */
+        
+        @font-face {
+            font-family: 'Manrope Fallback';
+            src: local('Arial'), local('Helvetica Neue');
+            /* 
+                Si Manrope no carga desde Google, usa Arial
+                Esto evita que la página se vea sin texto
+            */
+            font-weight: normal;
+        }
+        
+        /* ============================================ */
+        /* 2. RESETEO GLOBAL (NORMALIZACIÓN)           */
+        /* ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* 
+                box-sizing: border-box → El padding y borde 
+                se INCLUYEN dentro del ancho/alto definido
+                Ejemplo: width: 200px + padding: 20px = 200px total (no 240px)
+            */
+        }
+        
+        /* ============================================ */
+        /* 3. VARIABLES CSS (CUSTOM PROPERTIES)        */
+        /* ============================================ */
+        
+        :root {
+            /* PALETA DE COLORES PRINCIPAL */
+            --color-azul-oscuro: #0b1f33;      /* Color principal */
+            --color-azul-medio: #0b3558;       /* Stats, overlays */
+            --color-azul-claro: #1b75d0;       /* Texto azul destacado */
+            --color-verde: #6fbf44;            /* Texto verde + detalles */
+            --color-blanco: #ffffff;
+            --color-gris-claro: #f5f7fa;
+            
+            /* TIPOGRAFÍA */
+            --font-principal: 'Manrope', 'Manrope Fallback', 'Arial', sans-serif;
+            /* 
+                Orden de prioridad:
+                1. Manrope (Google)
+                2. Manrope Fallback (local)
+                3. Arial (sistema)
+                4. sans-serif (genérica del sistema)
+            */
+            
+            /* TAMAÑOS DE FUENTE */
+            --texto-xs: 0.75rem;    /* 12px */
+            --texto-sm: 0.875rem;   /* 14px */
+            --texto-base: 1rem;     /* 16px */
+            --texto-lg: 1.125rem;   /* 18px */
+            --texto-xl: 1.25rem;    /* 20px */
+            
+            /* ESPACIADOS */
+            --espacio-xs: 0.5rem;   /* 8px */
+            --espacio-sm: 1rem;     /* 16px */
+            --espacio-md: 1.5rem;   /* 24px */
+            --espacio-lg: 2rem;     /* 32px */
+            --espacio-xl: 3rem;     /* 48px */
+            --espacio-2xl: 5rem;    /* 80px */
+            
+            /* BORDES REDONDEADOS */
+            --radio-sm: 12px;
+            --radio-md: 20px;
+            --radio-lg: 30px;
+            --radio-xl: 40px;
+            --radio-redondo: 50%;
+            
+            /* ALTURAS FIJAS */
+            --header-altura: 90px;
+            
+            /* BREAKPOINTS (referencia para media queries) */
+            --movil: 480px;
+            --tablet: 768px;
+            --desktop: 1024px;
+        }
+        
+        /* ============================================ */
+        /* 4. ESTILOS BASE DEL CUERPO                  */
+        /* ============================================ */
+        
+        html {
+            scroll-behavior: smooth;
+            /* Hace que los enlaces ancla tengan desplazamiento suave */
+        }
+        
+        body {
+            font-family: var(--font-principal);
+            color: var(--color-azul-oscuro);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* 
+                overflow-x: hidden → Evita scroll horizontal 
+                (común en móviles cuando algo se desborda)
+            */
+            -webkit-font-smoothing: antialiased;
+            /* Mejora el renderizado de texto en macOS e iOS */
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* ============================================ */
+        /* 5. ESTILOS DE HEADER (BARRA SUPERIOR)       */
+        /* ============================================ */
+        
+        header {
+            position: fixed;
+            /* 
+                fixed → Permanece fijo en la pantalla aunque hagas scroll
+                SIEMPRE visible
+            */
+            top: 0;
+            width: 100%;
+            height: var(--header-altura);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            /* 
+                backdrop-filter → Efecto de desenfoque
+                Lo que está DETRÁS del header se ve borroso
+                Como un vidrio esmerilado
+            */
+            -webkit-backdrop-filter: blur(15px);
+            /* Soporte para Safari */
+            z-index: 1000;
+            /* 
+                z-index → Controla qué elemento está "encima" de otros
+                1000 = número alto, se asegura que esté sobre casi todo
+            */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        /* LOGO */
+        .logo {
+            width: 200px;
+            height: auto;
+            /* height: auto mantiene la proporción */
+            max-width: 100%;
+            /* No será más grande que su contenedor */
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.02);
+            /* Ligero aumento al pasar el mouse */
+        }
+        
+        /* LOGO DE RESPALDO (si la imagen falla) */
+        .logo-fallback {
+            display: none;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color-azul-oscuro);
+            text-decoration: none;
+        }
+        
+        /* ============================================ */
+        /* 6. NAVEGACIÓN                              */
+        /* ============================================ */
+        
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+        
+        /* BOTÓN HAMBURGUESA (MÓVIL) - Ocualto por defecto */
+        .hamburguesa {
+            display: none;
+            /* Solo visible en móviles */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            min-width: 44px;
+            min-height: 44px;
+            /* 
+                Tamaño mínimo 44x44px = Recomendación de Apple/Google
+                para que sea fácil tocar con el dedo
+            */
+            z-index: 1001;
+            position: relative;
+        }
+        
+        /* LÍNEAS DEL ÍCONO HAMBURGUESA */
+        .hamburguesa-linea {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--color-azul-oscuro);
+            margin: 5px 0;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            /* 
+                transition → Hace que los cambios sean animados
+                all → aplica a todas las propiedades
+                0.3s → duración de la animación
+                ease → curva de aceleración suave
+            */
+        }
+        
+        /* ANIMACIÓN DEL HAMBURGUESA CUANDO SE ABRE */
+        .hamburguesa.activo .hamburguesa-linea:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+            /* Rota 45° y se mueve para formar la X */
+        }
+        
+        .hamburguesa.activo .hamburguesa-linea:nth-child(2) {
+            opacity: 0;
+            /* La línea del medio desaparece */
+        }
+        
+        .hamburguesa.activo .hamburguesa-linea:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+            /* Rota -45° para completar la X */
+        }
+        
+        /* LISTA DE ENLACES */
+        .nav-lista {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+        
+        .nav-lista a {
+            text-decoration: none;
+            color: var(--color-azul-oscuro);
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        /* LÍNEA DECORATIVA BAJO EL ENLACE (EFECTO HOVER) */
+        .nav-lista a::after {
+            content: '';
+            /* 
+                ::after → Pseudo-elemento, crea algo DESPUÉS del contenido
+                content: '' → Necesario aunque esté vacío para que funcione
+            */
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-verde);
+            transition: width 0.3s ease;
+            /* Comienza con ancho 0 y crece al hacer hover */
+        }
+        
+        .nav-lista a:hover::after,
+        .nav-lista a.activo::after {
+            width: 100%;
+            /* Al hacer hover o si está activo, la línea ocupa todo el ancho */
+        }
+        
+        .nav-lista a:hover {
+            color: var(--color-verde);
+        }
+        
+        /* ============================================ */
+        /* 7. BOTÓN DEL HEADER                        */
+        /* ============================================ */
+        
+        .btn-header {
+            background: var(--color-azul-oscuro);
+            color: var(--color-blanco);
+            border: none;
+            padding: 14px 32px;
+            border-radius: var(--radio-xl);
+            font-weight: 700;
+            font-family: var(--font-principal);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            /* Evita que el texto se divida en varias líneas */
+            min-height: 48px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-header:hover {
+            background: var(--color-azul-medio);
+            transform: translateY(-2px);
+            /* Se eleva ligeramente */
+            box-shadow: 0 8px 25px rgba(11, 31, 51, 0.3);
+        }
+        
+        .btn-header:active {
+            transform: translateY(0);
+            /* Vuelve a su posición al hacer clic */
+        }
+        
+        /* ============================================ */
+        /* 8. SECCIÓN HERO (BANNER PRINCIPAL)          */
+        /* ============================================ */
+        
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            /* 
+                vh = viewport height (altura de la ventana)
+                100vh = exactamente la altura de la pantalla
+                min-height asegura que sea AL MENOS eso
+            */
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8f9fb 0%, #e8ecf1 100%);
+        }
+        
+        /* IMAGEN DE FONDO */
+        .hero-bg {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 55%;
+            height: 100%;
+            object-fit: cover;
+            /* 
+                object-fit: cover → La imagen cubre todo el espacio
+                recortándose si es necesario (no se deforma)
+            */
+            object-position: center;
+            z-index: 1;
+        }
+        
+        /* OVERLAY GRADIENTE (MEJORA LEGIBILIDAD) */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            /* 
+                inset: 0 → Equivale a:
+                top: 0; right: 0; bottom: 0; left: 0;
+                Cubre TODO el elemento padre
+            */
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.97) 0%,
+                rgba(255, 255, 255, 0.85) 40%,
+                rgba(255, 255, 255, 0.3) 100%
+            );
+            z-index: 2;
+        }
+        
+        /* CONTENIDO DEL HERO */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            /* Mayor que el overlay para estar encima */
+            width: 60%;
+            padding: 120px 7% 60px;
+        }
+        
+        /* ETIQUETA SUPERIOR */
+        .tag {
+            color: var(--color-verde);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: var(--texto-sm);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        /* TÍTULO PRINCIPAL */
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            /* 
+                clamp(mínimo, preferido, máximo) → Tamaño fluido
+                - Mínimo: 2.5rem (40px) - nunca más pequeño
+                - Preferido: 5vw (5% del ancho de pantalla)
+                - Máximo: 5rem (80px) - nunca más grande
+            */
+            line-height: 1.05;
+            margin-bottom: 25px;
+            font-weight: 800;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            /* 
+                0.2s both → Espera 0.2s antes de animar
+                both → Mantiene el estado inicial y final
+            */
+        }
+        
+        .azul { color: var(--color-azul-claro); }
+        .verde { color: var(--color-verde); }
+        
+        /* DESCRIPCIÓN */
+        .descripcion {
+            font-size: var(--texto-lg);
+            line-height: 1.7;
+            max-width: 550px;
+            margin-bottom: 35px;
+            color: #2d3a4a;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        /* ANIMACIÓN DE ENTRADA */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                /* Comienza invisible y 30px más abajo */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                /* Termina visible y en su posición */
+            }
+        }
+        
+        /* ============================================ */
+        /* 9. ICONOS DE SERVICIOS                      */
+        /* ============================================ */
+        
+        .servicios-iconos {
+            display: flex;
+            gap: 40px;
+            margin: 35px 0;
+            flex-wrap: wrap;
+            /* Permite que bajen a la siguiente línea si no caben */
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .servicio-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: var(--texto-xs);
+            transition: transform 0.3s;
+            cursor: default;
+        }
+        
+        .servicio-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .servicio-icono {
+            font-size: 2.5rem;
+            display: block;
+        }
+        
+        /* ============================================ */
+        /* 10. BOTONES DE ACCIÓN                       */
+        /* ============================================ */
+        
+        .botones {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+        
+        .btn-primario,
+        .btn-secundario {
+            padding: 16px 32px;
+            border-radius: var(--radio-xl);
+            font-weight: 700;
+            font-family: var(--font-principal);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 56px;
+            font-size: 0.95rem;
+            border: 2px solid transparent;
+        }
+        
+        .btn-primario {
+            background: var(--color-azul-oscuro);
+            color: var(--color-blanco);
+            border-color: var(--color-azul-oscuro);
+        }
+        
+        .btn-primario:hover {
+            background: var(--color-azul-medio);
+            border-color: var(--color-azul-medio);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(11, 31, 51, 0.3);
+        }
+        
+        .btn-secundario {
+            background: transparent;
+            color: var(--color-azul-oscuro);
+            border-color: var(--color-azul-oscuro);
+        }
+        
+        .btn-secundario:hover {
+            background: var(--color-azul-oscuro);
+            color: var(--color-blanco);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primario:active,
+        .btn-secundario:active {
+            transform: translateY(0);
+        }
+        
+        /* ============================================ */
+        /* 11. ESTADÍSTICAS                            */
+        /* ============================================ */
+        
+        .stats {
+            position: absolute;
+            bottom: 40px;
+            left: 5%;
+            right: 5%;
+            z-index: 3;
+            background: var(--color-azul-medio);
+            color: var(--color-blanco);
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+            border-radius: var(--radio-md);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .stat-item strong {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-verde), #8fd14f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* 
+                Texto con gradiente:
+                -webkit-background-clip: text → El fondo se recorta al texto
+                -webkit-text-fill-color: transparent → Deja ver el gradiente
+            */
+        }
+        
+        .stat-item p {
+            font-size: var(--texto-xs);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+        
+        /* CURVA DECORATIVA */
+        .curva {
+            position: absolute;
+            bottom: -60px;
+            left: -5%;
+            width: 110%;
+            height: 120px;
+            background: var(--color-verde);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        /* ============================================ */
+        /* 12. SECCIÓN INGENIERÍA SOSTENIBLE           */
+        /* ============================================ */
+        
+        .body-section {
+            padding: 120px 8% 100px;
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            background: var(--color-gris-claro);
+        }
+        
+        .body-section img {
+            width: 50%;
+            border-radius: var(--radio-md);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            height: auto;
+        }
+        
+        .body-section img:hover {
+            transform: scale(1.02);
+        }
+        
+        .body-content h2 {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .body-content p {
+            font-size: var(--texto-lg);
+            line-height: 1.8;
+            color: #2d3a4a;
+            margin-bottom: 25px;
+        }
+        
+        .btn-link {
+            color: var(--color-verde);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+            transition: all 0.3s;
+        }
+        
+        .btn-link:hover {
+            border-bottom-color: var(--color-verde);
+        }
+        
+        /* ============================================ */
+        /* 13. FOOTER                                  */
+        /* ============================================ */
+        
+        footer {
+            background: var(--color-azul-oscuro);
+            color: var(--color-blanco);
+            padding: 50px 8% 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo img {
+            width: 180px;
+            height: auto;
+            filter: brightness(0) invert(1);
+            /* 
+                filter → Aplica efectos visuales
+                brightness(0) → Oscurece a negro
+                invert(1) → Invierte colores (negro → blanco)
+                Resultado: Logo en blanco
+            */
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+        
+        .footer-links a:hover {
+            color: var(--color-verde);
+        }
+        
+        .footer-copy {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+            font-size: var(--texto-sm);
+            opacity: 0.7;
+        }
+        
+        /* ============================================ */
+        /* 14. MEDIA QUERIES (DISEÑO RESPONSIVE)       */
+        /* ============================================ */
+        
+        /* TABLET GRANDE Y DESKTOP PEQUEÑO */
+        @media (max-width: 1024px) {
+            .hero-content {
+                width: 70%;
+            }
+            
+            .nav-lista {
+                gap: 25px;
+            }
+            
+            h1 {
+                font-size: clamp(2.2rem, 4.5vw, 4rem);
+            }
+        }
+        
+        /* TABLET Y MÓVILES GRANDES */
+        @media (max-width: 768px) {
+            /* HEADER MÓVIL */
+            header {
+                height: 70px;
+                padding: 0 5%;
+            }
+            
+            .logo {
+                width: 150px;
+            }
+            
+            /* MOSTRAR HAMBURGUESA */
+            .hamburguesa {
+                display: block;
+            }
+            
+            /* OCULTAR BOTÓN HEADER EN MÓVIL */
+            .btn-header {
+                display: none;
+            }
+            
+            /* NAVEGACIÓN MÓVIL (MENÚ LATERAL) */
+            .nav-lista {
+                display: none;
+                /* Oculto por defecto */
+                position: fixed;
+                top: 0;
+                right: -100%;
+                /* Fuera de pantalla a la derecha */
+                width: 280px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 100px 30px 40px;
+                gap: 30px;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+                transition: right 0.4s ease;
+                z-index: 999;
+            }
+            
+            .nav-lista.activo {
+                right: 0;
+                /* Se desliza dentro de la pantalla */
+                display: flex;
+            }
+            
+            .nav-lista a {
+                font-size: 1.2rem;
+            }
+            
+            /* HERO MÓVIL */
+            .hero {
+                min-height: 100dvh;
+                /* 
+                    dvh = dynamic viewport height
+                    Mejor que vh en móviles porque se ajusta
+                    cuando la barra del navegador aparece/desaparece
+                */
+                padding: 80px 0 40px;
+            }
+            
+            .hero-bg {
+                width: 100%;
+                opacity: 0.25;
+                object-position: 65% center;
+            }
+            
+            .hero-overlay {
+                background: linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.98) 0%,
+                    rgba(255, 255, 255, 0.9) 50%,
+                    rgba(255, 255, 255, 0.7) 100%
+                );
+            }
+            
+            .hero-content {
+                width: 100%;
+                padding: 0 5%;
+                text-align: center;
+            }
+            
+            h1 {
+                font-size: clamp(2rem, 7vw, 3rem);
+            }
+            
+            .descripcion {
+                margin: 0 auto 30px;
+            }
+            
+            .servicios-iconos {
+                justify-content: center;
+                gap: 25px;
+            }
+            
+            .servicio-item {
+                flex: 0 0 calc(50% - 25px);
+            }
+            
+            .botones {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primario,
+            .btn-secundario {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            /* STATS EN COLUMNA */
+            .stats {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                margin: 40px 5% 0;
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .curva {
+                bottom: -40px;
+                height: 80px;
+                width: 130%;
+                left: -15%;
+            }
+            
+            /* BODY SECTION EN COLUMNA */
+            .body-section {
+                flex-direction: column;
+                padding: 60px 5%;
+                gap: 35px;
+            }
+            
+            .body-section img {
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .body-content {
+                text-align: center;
+            }
+            
+            .body-content p {
+                margin: 0 auto 20px;
+            }
+            
+            /* FOOTER MÓVIL */
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* MÓVILES PEQUEÑOS */
+        @media (max-width: 480px) {
+            .logo {
+                width: 120px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tag {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+            
+            .servicios-iconos {
+                gap: 15px;
+            }
+            
+            .servicio-icono {
+                font-size: 2rem;
+            }
+            
+            .stat-item strong {
+                font-size: 1.8rem;
+            }
+            
+            .stat-item p {
+                font-size: 0.7rem;
+            }
+            
+            .btn-primario,
+            .btn-secundario {
+                padding: 14px 28px;
+                font-size: 0.85rem;
+                min-height: 48px;
+            }
+        }
+        
+        /* MÓVILES MUY PEQUEÑOS */
+        @media (max-width: 360px) {
+            header {
+                height: 60px;
+            }
+            
+            .logo {
+                width: 100px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .servicio-item {
+                font-size: 0.65rem;
+            }
+        }
+        
+        /* ============================================ */
+        /* 15. PREFERENCIAS DE ACCESIBILIDAD           */
+        /* ============================================ */
+        
+        @media (prefers-reduced-motion: reduce) {
+            /* 
+                Si el usuario configuró "reducir movimiento" en su sistema,
+                desactiva todas las animaciones
+            */
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            html {
+                scroll-behavior: auto;
+            }
+        }
+        
+        /* MODO CONTRASTE ALTO */
+        @media (prefers-contrast: high) {
+            .btn-secundario {
+                border-width: 3px;
+            }
+            
+            .descripcion {
+                color: #000;
+            }
+        }
+        
+        /* ============================================ */
+        /* 16. UTILIDADES ADICIONALES                  */
+        /* ============================================ */
+        
+        /* Selección de texto personalizada */
+        ::selection {
+            background: var(--color-verde);
+            color: white;
+        }
+        
+        /* Estilo de focus para teclado (accesibilidad) */
+        :focus-visible {
+            outline: 3px solid var(--color-verde);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+        
+        /* OVERLAY PARA CUANDO EL MENÚ ESTÁ ABIERTO */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .menu-overlay.activo {
+            display: block;
+            opacity: 1;
+        }
+        
+    </style>
 </head>
 
 <body>
-    <!-- 
-    ============================================
-    HEADER - BARRA DE NAVEGACIÓN
-    ============================================
-    COMPATIBILIDAD MÓVIL: Estructura preparada para
-    menú hamburguesa. En móviles, la navegación 
-    debería colapsar y mostrarse como botón táctil
-    de al menos 44x44px (tamaño mínimo según Apple
-    y Google para targets táctiles)
-    -->
-    <header class="header" role="banner">
-        <!-- 
-        LOGO: En móvil, debe ser tocable para volver al inicio.
-        Se recomienda tamaño mínimo de 44px de altura para
-        ser fácilmente pulsable con el pulgar.
-        -->
-        <div class="logo-area">
-            <!-- ALT TEXT: Importante para accesibilidad en lectores de pantalla móviles -->
-            <img src="assets/logo.png" class="logo" alt="CORSAIN Logo" width="150" height="50">
-        </div>
 
-        <!-- 
-        NAVEGACIÓN PRINCIPAL
-        MÓVIL: Estos enlaces deben transformarse en un menú
-        tipo hamburguesa. Idealmente con animación CSS y
-        JavaScript para toggle. Los enlaces deben tener
-        padding suficiente (mínimo 8px) para ser tocables.
-        -->
-        <nav class="nav-menu" role="navigation" aria-label="Menú principal">
-            <!-- 
-            MENÚ HAMBURGUESA (añadido para móviles)
-            Botón con aria-label para accesibilidad.
-            En móviles, los tres spans forman las líneas del ícono.
-            -->
-            <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
+    <!-- ============================================ -->
+    <!-- OVERLAY DEL MENÚ MÓVIL                       -->
+    <!-- ============================================ -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- ============================================ -->
+    <!-- HEADER (BARRA SUPERIOR FIJA)                 -->
+    <!-- ============================================ -->
+    <header>
+        <!-- LOGO CON FALLBACK -->
+        <a href="#" id="logoLink">
+            <!-- Intenta cargar la imagen del logo -->
+            <img 
+                src="assets/logo.png" 
+                alt="CORSAIN Logo" 
+                class="logo" 
+                id="mainLogo"
+                width="200" 
+                height="50"
+                onerror="handleLogoError()"
+                <!-- 
+                    onerror → Si la imagen no carga, ejecuta esta función
+                    Muestra un texto de respaldo en lugar del logo roto
+                -->
+            >
+            <!-- Texto de respaldo (oculto hasta que falle la imagen) -->
+            <span id="logoFallbackText" style="display:none; font-family:'Manrope',sans-serif; font-size:1.6rem; font-weight:800; color:#0b1f33;">
+                CORSAIN
+            </span>
+        </a>
+        
+        <!-- NAVEGACIÓN PRINCIPAL -->
+        <nav>
+            <!-- BOTÓN HAMBURGUESA (solo visible en móvil) -->
+            <button 
+                class="hamburguesa" 
+                id="hamburguesaBtn" 
+                aria-label="Abrir menú de navegación" 
+                aria-expanded="false"
+                <!-- 
+                    aria-label → Descripción para lectores de pantalla
+                    aria-expanded → Indica si el menú está abierto o cerrado
+                -->
+            >
+                <span class="hamburguesa-linea"></span>
+                <span class="hamburguesa-linea"></span>
+                <span class="hamburguesa-linea"></span>
             </button>
             
-            <!-- 
-            LISTA DE NAVEGACIÓN
-            En móviles, oculta por defecto y se muestra
-            al tocar el botón hamburguesa.
-            -->
-            <ul class="nav-list">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Nosotros</a></li>
-                <li><a href="#">Servicios</a></li>
-                <li><a href="#">Proyectos</a></li>
-                <li><a href="#">Sostenibilidad</a></li>
-                <li><a href="#">Contacto</a></li>
+            <!-- LISTA DE ENLACES -->
+            <ul class="nav-lista" id="navLista">
+                <li><a href="#inicio" class="activo">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#sostenibilidad">Sostenibilidad</a></li>
+                <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
-
-        <!-- 
-        BOTÓN DE ACCIÓN
-        MÓVIL: Debe ser prominent y fácil de tocar.
-        Tamaño mínimo recomendado: 44x44px.
-        En pantallas pequeñas puede ocupar ancho completo
-        o posicionarse fijo en la parte inferior.
-        -->
-        <button class="btn-header">
+        
+        <!-- BOTÓN DE ACCIÓN (oculto en móvil) -->
+        <button class="btn-header" onclick="location.href='#contacto'">
             HABLEMOS →
         </button>
     </header>
 
-    <!-- 
-    ============================================
-    SECCIÓN HERO - BANNER PRINCIPAL
-    ============================================
-    MÓVIL: Altura ajustada con vh o min-height.
-    Textos con tamaño responsivo. El contenido
-    debe ser legible en pantallas de 320px de ancho
-    (iPhone SE) sin overflow horizontal.
-    -->
-    <section class="hero" aria-label="Banner principal">
-        <!-- 
-        IMAGEN DE FONDO
-        MÓVIL: Usar object-fit: cover para que se ajuste
-        sin deformarse. En móviles, considerar cargar
-        una versión más pequeña con srcset para ahorrar datos.
-        -->
+    <!-- ============================================ -->
+    <!-- SECCIÓN HERO (BANNER PRINCIPAL)             -->
+    <!-- ============================================ -->
+    <section id="inicio" class="hero">
+        <!-- IMAGEN DE FONDO -->
         <img 
-            src="assets/fig_head.jpg"
+            src="assets/fig_head.jpg" 
+            alt="" 
             class="hero-bg"
-            alt=""
-            loading="eager" <!-- Carga inmediata por ser LCP -->
-            decoding="async"
+            loading="eager"
+            <!-- 
+                alt="" → Vacío porque es decorativa
+                loading="eager" → Se carga inmediatamente (es la imagen principal)
+            -->
         >
-
-        <!-- OVERLAY: Mejora la legibilidad del texto sobre la imagen -->
+        
+        <!-- OVERLAY PARA MEJORAR LEGIBILIDAD -->
         <div class="hero-overlay" aria-hidden="true"></div>
-
-        <!-- CONTENIDO PRINCIPAL DEL HERO -->
+        <!-- aria-hidden="true" → Los lectores de pantalla ignoran este elemento -->
+        
+        <!-- CONTENIDO PRINCIPAL -->
         <div class="hero-content">
-            <!-- 
-            TAG O ETIQUETA
-            MÓVIL: Fuente más pequeña, pero manteniendo
-            legibilidad. Ideal usar unidades relativas (rem/em)
-            o clamp() para responsividad fluida.
-            -->
-            <p class="tag">
-                INGENIERÍA QUE TRANSFORMA
-            </p>
-
-            <!-- 
-            TÍTULO PRINCIPAL H1
-            MÓVIL: El tamaño de fuente debe reducirse.
-            Usar clamp() para responsividad fluida:
-            Ejemplo: font-size: clamp(2rem, 5vw, 4rem)
-            Los saltos de línea (<br>) deben ser estratégicos
-            y preferiblemente manejados con CSS en móviles.
-            -->
+            <p class="tag">INGENIERÍA QUE TRANSFORMA</p>
+            
             <h1>
                 Soluciones integrales
                 <br>
-                <span class="blue">
-                    en saneamiento,
-                </span>
+                <span class="azul">en saneamiento,</span>
                 <br>
-                <span class="green">
-                    agua potable e instalaciones sanitarias
-                </span>
+                <span class="verde">agua potable e instalaciones sanitarias</span>
             </h1>
-
-            <!-- 
-            DESCRIPCIÓN
-            MÓVIL: Ancho máximo limitado para legibilidad
-            (65-75 caracteres por línea ideal).
-            Tamaño de fuente mínimo 16px para evitar
-            zoom automático en iOS al enfocar inputs.
-            -->
-            <p class="description">
+            
+            <p class="descripcion">
                 Diseñamos, construimos y optimizamos sistemas
                 que mejoran la calidad de vida, garantizan eficiencia
                 y promueven el uso responsable del agua.
             </p>
-
-            <!-- 
-            ICONOS DE SERVICIOS
-            MÓVIL: Grid de 2 columnas en lugar de 4.
-            Cada ícono debe ser mínimo 44x44px para ser
-            tocable si son interactivos. Aquí son decorativos
-            pero deben escalar bien.
-            -->
-            <div class="service-icons" role="list" aria-label="Servicios principales">
-                <div class="service-icon-item" role="listitem">
-                    <span class="icon" aria-hidden="true">💧</span>
-                    <span class="icon-label">AGUA POTABLE</span>
+            
+            <!-- ICONOS DE SERVICIOS -->
+            <div class="servicios-iconos" role="list" aria-label="Servicios principales">
+                <div class="servicio-item" role="listitem">
+                    <span class="servicio-icono" aria-hidden="true">💧</span>
+                    <span>AGUA POTABLE</span>
                 </div>
-                <div class="service-icon-item" role="listitem">
-                    <span class="icon" aria-hidden="true">🔧</span>
-                    <span class="icon-label">SANEAMIENTO</span>
+                <div class="servicio-item" role="listitem">
+                    <span class="servicio-icono" aria-hidden="true">🔧</span>
+                    <span>SANEAMIENTO</span>
                 </div>
-                <div class="service-icon-item" role="listitem">
-                    <span class="icon" aria-hidden="true">🚰</span>
-                    <span class="icon-label">INSTALACIONES</span>
+                <div class="servicio-item" role="listitem">
+                    <span class="servicio-icono" aria-hidden="true">🚰</span>
+                    <span>INSTALACIONES</span>
                 </div>
-                <div class="service-icon-item" role="listitem">
-                    <span class="icon" aria-hidden="true">🌱</span>
-                    <span class="icon-label">SOSTENIBILIDAD</span>
+                <div class="servicio-item" role="listitem">
+                    <span class="servicio-icono" aria-hidden="true">🌱</span>
+                    <span>SOSTENIBILIDAD</span>
                 </div>
             </div>
-
-            <!-- 
-            BOTONES DE ACCIÓN
-            MÓVIL: En móviles, los botones deberían
-            apilarse verticalmente y ocupar ancho completo
-            para facilitar el toque. Espaciado mínimo
-            entre botones de 8-12px para evitar toques accidentales.
-            -->
-            <div class="buttons">
-                <button class="btn-primary">
+            
+            <!-- BOTONES DE ACCIÓN -->
+            <div class="botones">
+                <button class="btn-primario" onclick="location.href='#servicios'">
                     CONOCE NUESTROS SERVICIOS →
                 </button>
-                <button class="btn-outline">
+                <button class="btn-secundario" onclick="location.href='#proyectos'">
                     VER PROYECTOS →
                 </button>
             </div>
         </div>
-
-        <!-- 
-        ESTADÍSTICAS
-        MÓVIL: Grid de 2 columnas en móviles (2x2).
-        Fuente de números grande pero responsiva.
-        La sección debe tener padding adecuado
-        para no pegarse a los bordes.
-        -->
-        <div class="stats" aria-label="Estadísticas de la empresa">
+        
+        <!-- ESTADÍSTICAS -->
+        <div class="stats">
             <div class="stat-item">
                 <strong>+20</strong>
                 <p>AÑOS DE EXPERIENCIA</p>
@@ -243,94 +1240,239 @@
                 <p>COMPROMISO FUTURO</p>
             </div>
         </div>
-
-        <!-- 
-        CURVA DECORATIVA
-        MÓVIL: SVG sería mejor que un div para 
-        escalar perfectamente. Mantener la curva
-        proporcional en todos los anchos.
-        -->
-        <div class="curve" aria-hidden="true"></div>
+        
+        <!-- CURVA DECORATIVA -->
+        <div class="curva" aria-hidden="true"></div>
     </section>
 
-    <!-- 
-    ============================================
-    SECCIÓN CUERPO - INGENIERÍA SOSTENIBLE
-    ============================================
-    MÓVIL: Layout de una columna (imagen arriba,
-    texto abajo). Imagen con width: 100% y
-    height: auto para mantener proporción.
-    -->
-    <section class="body-section" aria-label="Ingeniería sostenible">
-        <!-- 
-        IMAGEN
-        MÓVIL: Añadir atributos width/height para
-        evitar CLS (Cumulative Layout Shift).
-        loading="lazy" para carga diferida ya que
-        está below the fold.
-        -->
+    <!-- ============================================ -->
+    <!-- SECCIÓN INGENIERÍA SOSTENIBLE               -->
+    <!-- ============================================ -->
+    <section id="nosotros" class="body-section">
+        <!-- Imagen con lazy loading -->
         <img 
             src="assets/body.jpg" 
             alt="Ingeniería sostenible CORSAIN"
             loading="lazy"
-            decoding="async"
-            width="600"
-            height="400"
+            <!-- loading="lazy" → Carga la imagen solo cuando está cerca de verse -->
         >
-
-        <!-- 
-        CONTENIDO DE TEXTO
-        MÓVIL: Texto centrado o alineado a la izquierda.
-        Tamaño de fuente responsivo.
-        -->
+        
         <div class="body-content">
-            <h2>
-                Ingeniería sostenible para el futuro
-            </h2>
+            <h2>Ingeniería sostenible para el futuro</h2>
             <p>
                 Desarrollamos soluciones hidráulicas,
                 sanitarias y ambientales con enfoque técnico.
             </p>
-            <!-- 
-            BOTÓN DE ACCIÓN ADICIONAL (añadido para mejor UX móvil)
-            En móviles, tener un botón claro de siguiente paso
-            mejora la conversión.
-            -->
-            <a href="#" class="btn-link">
-                Conoce más sobre nosotros →
-            </a>
+            <a href="#" class="btn-link">Conoce más sobre nosotros →</a>
         </div>
     </section>
 
-    <!-- 
-    ============================================
-    FOOTER (AÑADIDO - necesario para completar la estructura)
-    ============================================
-    MÓVIL: Layout en columna. Enlaces con suficiente
-    espaciado vertical para ser tocables.
-    Información de contacto fácilmente accesible.
-    -->
-    <footer class="footer" role="contentinfo">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="assets/logo.png" alt="CORSAIN Logo" width="120" height="40">
+    <!-- ============================================ -->
+    <!-- FOOTER (PIE DE PÁGINA)                      -->
+    <!-- ============================================ -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Logo en blanco -->
+                <div class="footer-logo">
+                    <img 
+                        src="assets/logo.png" 
+                        alt="CORSAIN Logo" 
+                        width="180"
+                        loading="lazy"
+                    >
+                </div>
+                
+                <!-- Enlaces del footer -->
+                <div class="footer-links">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#nosotros">Nosotros</a>
+                    <a href="#servicios">Servicios</a>
+                    <a href="#proyectos">Proyectos</a>
+                    <a href="#contacto">Contacto</a>
+                    <a href="#">Aviso de Privacidad</a>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="#">Inicio</a>
-                <a href="#">Servicios</a>
-                <a href="#">Contacto</a>
-                <a href="#">Aviso de Privacidad</a>
-            </div>
-            <p class="footer-copy">&copy; 2024 CORSAIN. Todos los derechos reservados.</p>
+            
+            <!-- Copyright -->
+            <p class="footer-copy">
+                &copy; 2026 CORSAIN — Ingeniería y Soluciones. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
-    <!-- 
-    SCRIPTS
-    defer: El script se descarga en paralelo y se ejecuta
-    después de que el HTML se ha parseado completamente.
-    Esto evita bloquear el renderizado en móviles.
-    -->
-    <script src="js/main.js" defer></script>
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT (INTERACTIVIDAD)                  -->
+    <!-- ============================================ -->
+    <script>
+        // ==============================================
+        // 1. MANEJO DE ERROR DEL LOGO (FALLBACK)
+        // ==============================================
+        
+        function handleLogoError() {
+            // Si la imagen del logo no carga, mostrar texto en su lugar
+            const logoImg = document.getElementById('mainLogo');
+            const fallbackSpan = document.getElementById('logoFallbackText');
+            
+            if (logoImg && fallbackSpan) {
+                logoImg.style.display = 'none';
+                fallbackSpan.style.display = 'inline-block';
+            }
+        }
+        
+        // Verificar el logo al cargar la página
+        window.addEventListener('DOMContentLoaded', function() {
+            const logo = document.getElementById('mainLogo');
+            if (logo && logo.complete && logo.naturalWidth === 0) {
+                // Si la imagen ya intentó cargar y falló (ancho natural = 0)
+                handleLogoError();
+            }
+        });
+        
+        // ==============================================
+        // 2. MENÚ HAMBURGUESA (MÓVIL)
+        // ==============================================
+        
+        const hamburguesaBtn = document.getElementById('hamburguesaBtn');
+        const navLista = document.getElementById('navLista');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        // Función para alternar el menú
+        function toggleMenu() {
+            const isOpen = navLista.classList.contains('activo');
+            
+            if (isOpen) {
+                // CERRAR MENÚ
+                navLista.classList.remove('activo');
+                hamburguesaBtn.classList.remove('activo');
+                menuOverlay.classList.remove('activo');
+                hamburguesaBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = ''; // Permitir scroll
+            } else {
+                // ABRIR MENÚ
+                navLista.classList.add('activo');
+                hamburguesaBtn.classList.add('activo');
+                menuOverlay.classList.add('activo');
+                hamburguesaBtn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden'; // Bloquear scroll
+            }
+        }
+        
+        // Evento: clic en botón hamburguesa
+        hamburguesaBtn.addEventListener('click', toggleMenu);
+        
+        // Evento: clic en overlay (fondo oscuro) cierra el menú
+        menuOverlay.addEventListener('click', toggleMenu);
+        
+        // Cerrar menú al hacer clic en un enlace
+        navLista.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLista.classList.contains('activo')) {
+                    toggleMenu();
+                }
+                
+                // Actualizar enlace activo
+                navLista.querySelectorAll('a').forEach(l => l.classList.remove('activo'));
+                link.classList.add('activo');
+            });
+        });
+        
+        // Cerrar menú con tecla Escape (accesibilidad)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLista.classList.contains('activo')) {
+                toggleMenu();
+            }
+        });
+        
+        // ==============================================
+        // 3. SCROLL SUAVE PARA ENLACES INTERNOS
+        // ==============================================
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // Si es "#" o está vacío, no hacer nada
+                if (href === '#' || href === '') return;
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // ==============================================
+        // 4. VERIFICACIÓN DE IMÁGENES CRÍTICAS
+        // ==============================================
+        
+        function verificarImagenesCriticas() {
+            const imagenes = [
+                { src: 'assets/fig_head.jpg', nombre: 'Hero background' },
+                { src: 'assets/body.jpg', nombre: 'Body section' }
+            ];
+            
+            imagenes.forEach(img => {
+                const testImg = new Image();
+                testImg.onload = () => console.log(`✓ ${img.nombre} cargada correctamente`);
+                testImg.onerror = () => console.warn(`⚠️ ${img.nombre} no encontrada - usando respaldo visual`);
+                testImg.src = img.src;
+            });
+        }
+        
+        // Ejecutar verificación al cargar
+        window.addEventListener('DOMContentLoaded', verificarImagenesCriticas);
+        
+        // ==============================================
+        // 5. DETECCIÓN DE DISPOSITIVO MÓVIL
+        // ==============================================
+        
+        function esDispositivoMovil() {
+            return window.innerWidth <= 768;
+        }
+        
+        // Ajustes al cambiar el tamaño de la ventana
+        let ventanaAnterior = window.innerWidth;
+        window.addEventListener('resize', () => {
+            const ventanaActual = window.innerWidth;
+            
+            // Si cambió de desktop a móvil o viceversa
+            if ((ventanaAnterior <= 768 && ventanaActual > 768) ||
+                (ventanaAnterior > 768 && ventanaActual <= 768)) {
+                // Cerrar menú si estaba abierto
+                if (navLista.classList.contains('activo')) {
+                    toggleMenu();
+                }
+            }
+            
+            ventanaAnterior = ventanaActual;
+        });
+        
+        // ==============================================
+        // 6. OPTIMIZACIÓN DE RENDIMIENTO
+        // ==============================================
+        
+        // Debounce para eventos de scroll/resize (evita ejecutar demasiadas veces)
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        console.log('🚀 CORSAIN - Ingeniería y Soluciones');
+        console.log('📱 Versión optimizada para móviles');
+        console.log('✅ Funcionalidades cargadas correctamente');
+    </script>
+
 </body>
 </html>
