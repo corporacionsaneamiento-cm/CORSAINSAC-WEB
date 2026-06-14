@@ -2,246 +2,335 @@
 <html lang="es">
 
 <head>
+    <!-- META BÁSICOS -->
+    <meta charset="UTF-8">
+    <!-- VIEWPORT: Crucial para móviles. width=device-width ajusta al ancho del dispositivo.
+         initial-scale=1 establece el zoom inicial. Esto evita que el sitio se vea
+         como versión de escritorio encogida en teléfonos -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- COMPATIBILIDAD CON IE/EDGE LEGACY -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO BÁSICO PARA MÓVILES -->
+    <meta name="description" content="CORSAIN - Ingeniería y soluciones integrales en saneamiento, agua potable e instalaciones sanitarias">
+    <meta name="theme-color" content="#0066CC"> <!-- Color de la barra de navegador en móvil -->
+    
+    <!-- iOS ESPECÍFICO: Permite guardar en pantalla de inicio como web app -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CORSAIN">
+    
+    <title>CORSAIN | Ingeniería y Soluciones</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>CORSAIN | Ingeniería y Soluciones</title>
-
-<link rel="stylesheet" href="css/style.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+    <!-- ESTILOS PRINCIPALES -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- FUENTES DE GOOGLE: Manrope con pesos optimizados para performance móvil -->
+    <!-- display=swap evita el FOIT (Flash Of Invisible Text) mostrando fuente del sistema mientras carga -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- PRELOAD DE IMÁGENES CRÍTICAS: Mejora LCP en móviles -->
+    <link rel="preload" as="image" href="assets/logo.png">
+    <link rel="preload" as="image" href="assets/fig_head.jpg">
 </head>
 
-
 <body>
-
-
-<header class="header">
-
-<div class="logo-area">
-
-<img src="assets/logo.png" class="logo">
-
-</div>
-
-
-<nav>
-
-<a href="#">Inicio</a>
-<a href="#">Nosotros</a>
-
-<a href="#">Servicios</a>
-
-<a href="#">Proyectos</a>
-
-<a href="#">Sostenibilidad</a>
-
-<a href="#">Contacto</a>
-
-
-</nav>
-
-
-<button class="btn-header">
-HABLEMOS →
-</button>
-
-
-</header>
-
-
-
-
-
-<section class="hero">
-
-
-<img 
-src="assets/fig_head.jpg"
-class="hero-bg"
->
-
-
-
-<div class="hero-overlay"></div>
-
-
-
-<div class="hero-content">
-
-
-<p class="tag">
-INGENIERÍA QUE TRANSFORMA
-</p>
-
-
-
-<h1>
-
-Soluciones integrales
-<br>
-
-<span class="blue">
-en saneamiento,
-</span>
-
-<br>
-
-<span class="green">
-agua potable e instalaciones sanitarias
-</span>
-
-
-</h1>
-
-
-
-<p class="description">
-
-Diseñamos, construimos y optimizamos sistemas
-que mejoran la calidad de vida, garantizan eficiencia
-y promueven el uso responsable del agua.
-
-</p>
-
-
-
-<div class="service-icons">
-
-
-<div>
-💧
-<span>
-AGUA POTABLE
-</span>
-</div>
-
-
-<div>
-🔧
-<span>
-SANEAMIENTO
-</span>
-</div>
-
-
-<div>
-🚰
-<span>
-INSTALACIONES
-</span>
-</div>
-
-
-<div>
-🌱
-<span>
-SOSTENIBILIDAD
-</span>
-</div>
-
-
-
-</div>
-
-
-
-
-<div class="buttons">
-
-
-<button>
-CONOCE NUESTROS SERVICIOS →
-</button>
-
-
-<button class="outline">
-VER PROYECTOS →
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<div class="stats">
-
-
-<div>
-<strong>+20</strong>
-<p>AÑOS DE EXPERIENCIA</p>
-</div>
-
-
-<div>
-<strong>+250</strong>
-<p>PROYECTOS EJECUTADOS</p>
-</div>
-
-
-<div>
-<strong>+1M</strong>
-<p>PERSONAS BENEFICIADAS</p>
-</div>
-
-
-<div>
-<strong>∞</strong>
-<p>COMPROMISO FUTURO</p>
-</div>
-
-
-</div>
-
-
-
-<div class="curve"></div>
-
-
-
-</section>
-
-
-
-
-<section class="body-section">
-
-
-<img src="assets/body.jpg">
-
-
-<div>
-
-<h2>
-Ingeniería sostenible para el futuro
-</h2>
-
-<p>
-Desarrollamos soluciones hidráulicas,
-sanitarias y ambientales con enfoque técnico.
-</p>
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-<script src="js/main.js"></script>
-
-
+    <!-- 
+    ============================================
+    HEADER - BARRA DE NAVEGACIÓN
+    ============================================
+    COMPATIBILIDAD MÓVIL: Estructura preparada para
+    menú hamburguesa. En móviles, la navegación 
+    debería colapsar y mostrarse como botón táctil
+    de al menos 44x44px (tamaño mínimo según Apple
+    y Google para targets táctiles)
+    -->
+    <header class="header" role="banner">
+        <!-- 
+        LOGO: En móvil, debe ser tocable para volver al inicio.
+        Se recomienda tamaño mínimo de 44px de altura para
+        ser fácilmente pulsable con el pulgar.
+        -->
+        <div class="logo-area">
+            <!-- ALT TEXT: Importante para accesibilidad en lectores de pantalla móviles -->
+            <img src="assets/logo.png" class="logo" alt="CORSAIN Logo" width="150" height="50">
+        </div>
+
+        <!-- 
+        NAVEGACIÓN PRINCIPAL
+        MÓVIL: Estos enlaces deben transformarse en un menú
+        tipo hamburguesa. Idealmente con animación CSS y
+        JavaScript para toggle. Los enlaces deben tener
+        padding suficiente (mínimo 8px) para ser tocables.
+        -->
+        <nav class="nav-menu" role="navigation" aria-label="Menú principal">
+            <!-- 
+            MENÚ HAMBURGUESA (añadido para móviles)
+            Botón con aria-label para accesibilidad.
+            En móviles, los tres spans forman las líneas del ícono.
+            -->
+            <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            
+            <!-- 
+            LISTA DE NAVEGACIÓN
+            En móviles, oculta por defecto y se muestra
+            al tocar el botón hamburguesa.
+            -->
+            <ul class="nav-list">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Proyectos</a></li>
+                <li><a href="#">Sostenibilidad</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <!-- 
+        BOTÓN DE ACCIÓN
+        MÓVIL: Debe ser prominent y fácil de tocar.
+        Tamaño mínimo recomendado: 44x44px.
+        En pantallas pequeñas puede ocupar ancho completo
+        o posicionarse fijo en la parte inferior.
+        -->
+        <button class="btn-header">
+            HABLEMOS →
+        </button>
+    </header>
+
+    <!-- 
+    ============================================
+    SECCIÓN HERO - BANNER PRINCIPAL
+    ============================================
+    MÓVIL: Altura ajustada con vh o min-height.
+    Textos con tamaño responsivo. El contenido
+    debe ser legible en pantallas de 320px de ancho
+    (iPhone SE) sin overflow horizontal.
+    -->
+    <section class="hero" aria-label="Banner principal">
+        <!-- 
+        IMAGEN DE FONDO
+        MÓVIL: Usar object-fit: cover para que se ajuste
+        sin deformarse. En móviles, considerar cargar
+        una versión más pequeña con srcset para ahorrar datos.
+        -->
+        <img 
+            src="assets/fig_head.jpg"
+            class="hero-bg"
+            alt=""
+            loading="eager" <!-- Carga inmediata por ser LCP -->
+            decoding="async"
+        >
+
+        <!-- OVERLAY: Mejora la legibilidad del texto sobre la imagen -->
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <!-- CONTENIDO PRINCIPAL DEL HERO -->
+        <div class="hero-content">
+            <!-- 
+            TAG O ETIQUETA
+            MÓVIL: Fuente más pequeña, pero manteniendo
+            legibilidad. Ideal usar unidades relativas (rem/em)
+            o clamp() para responsividad fluida.
+            -->
+            <p class="tag">
+                INGENIERÍA QUE TRANSFORMA
+            </p>
+
+            <!-- 
+            TÍTULO PRINCIPAL H1
+            MÓVIL: El tamaño de fuente debe reducirse.
+            Usar clamp() para responsividad fluida:
+            Ejemplo: font-size: clamp(2rem, 5vw, 4rem)
+            Los saltos de línea (<br>) deben ser estratégicos
+            y preferiblemente manejados con CSS en móviles.
+            -->
+            <h1>
+                Soluciones integrales
+                <br>
+                <span class="blue">
+                    en saneamiento,
+                </span>
+                <br>
+                <span class="green">
+                    agua potable e instalaciones sanitarias
+                </span>
+            </h1>
+
+            <!-- 
+            DESCRIPCIÓN
+            MÓVIL: Ancho máximo limitado para legibilidad
+            (65-75 caracteres por línea ideal).
+            Tamaño de fuente mínimo 16px para evitar
+            zoom automático en iOS al enfocar inputs.
+            -->
+            <p class="description">
+                Diseñamos, construimos y optimizamos sistemas
+                que mejoran la calidad de vida, garantizan eficiencia
+                y promueven el uso responsable del agua.
+            </p>
+
+            <!-- 
+            ICONOS DE SERVICIOS
+            MÓVIL: Grid de 2 columnas en lugar de 4.
+            Cada ícono debe ser mínimo 44x44px para ser
+            tocable si son interactivos. Aquí son decorativos
+            pero deben escalar bien.
+            -->
+            <div class="service-icons" role="list" aria-label="Servicios principales">
+                <div class="service-icon-item" role="listitem">
+                    <span class="icon" aria-hidden="true">💧</span>
+                    <span class="icon-label">AGUA POTABLE</span>
+                </div>
+                <div class="service-icon-item" role="listitem">
+                    <span class="icon" aria-hidden="true">🔧</span>
+                    <span class="icon-label">SANEAMIENTO</span>
+                </div>
+                <div class="service-icon-item" role="listitem">
+                    <span class="icon" aria-hidden="true">🚰</span>
+                    <span class="icon-label">INSTALACIONES</span>
+                </div>
+                <div class="service-icon-item" role="listitem">
+                    <span class="icon" aria-hidden="true">🌱</span>
+                    <span class="icon-label">SOSTENIBILIDAD</span>
+                </div>
+            </div>
+
+            <!-- 
+            BOTONES DE ACCIÓN
+            MÓVIL: En móviles, los botones deberían
+            apilarse verticalmente y ocupar ancho completo
+            para facilitar el toque. Espaciado mínimo
+            entre botones de 8-12px para evitar toques accidentales.
+            -->
+            <div class="buttons">
+                <button class="btn-primary">
+                    CONOCE NUESTROS SERVICIOS →
+                </button>
+                <button class="btn-outline">
+                    VER PROYECTOS →
+                </button>
+            </div>
+        </div>
+
+        <!-- 
+        ESTADÍSTICAS
+        MÓVIL: Grid de 2 columnas en móviles (2x2).
+        Fuente de números grande pero responsiva.
+        La sección debe tener padding adecuado
+        para no pegarse a los bordes.
+        -->
+        <div class="stats" aria-label="Estadísticas de la empresa">
+            <div class="stat-item">
+                <strong>+20</strong>
+                <p>AÑOS DE EXPERIENCIA</p>
+            </div>
+            <div class="stat-item">
+                <strong>+250</strong>
+                <p>PROYECTOS EJECUTADOS</p>
+            </div>
+            <div class="stat-item">
+                <strong>+1M</strong>
+                <p>PERSONAS BENEFICIADAS</p>
+            </div>
+            <div class="stat-item">
+                <strong>∞</strong>
+                <p>COMPROMISO FUTURO</p>
+            </div>
+        </div>
+
+        <!-- 
+        CURVA DECORATIVA
+        MÓVIL: SVG sería mejor que un div para 
+        escalar perfectamente. Mantener la curva
+        proporcional en todos los anchos.
+        -->
+        <div class="curve" aria-hidden="true"></div>
+    </section>
+
+    <!-- 
+    ============================================
+    SECCIÓN CUERPO - INGENIERÍA SOSTENIBLE
+    ============================================
+    MÓVIL: Layout de una columna (imagen arriba,
+    texto abajo). Imagen con width: 100% y
+    height: auto para mantener proporción.
+    -->
+    <section class="body-section" aria-label="Ingeniería sostenible">
+        <!-- 
+        IMAGEN
+        MÓVIL: Añadir atributos width/height para
+        evitar CLS (Cumulative Layout Shift).
+        loading="lazy" para carga diferida ya que
+        está below the fold.
+        -->
+        <img 
+            src="assets/body.jpg" 
+            alt="Ingeniería sostenible CORSAIN"
+            loading="lazy"
+            decoding="async"
+            width="600"
+            height="400"
+        >
+
+        <!-- 
+        CONTENIDO DE TEXTO
+        MÓVIL: Texto centrado o alineado a la izquierda.
+        Tamaño de fuente responsivo.
+        -->
+        <div class="body-content">
+            <h2>
+                Ingeniería sostenible para el futuro
+            </h2>
+            <p>
+                Desarrollamos soluciones hidráulicas,
+                sanitarias y ambientales con enfoque técnico.
+            </p>
+            <!-- 
+            BOTÓN DE ACCIÓN ADICIONAL (añadido para mejor UX móvil)
+            En móviles, tener un botón claro de siguiente paso
+            mejora la conversión.
+            -->
+            <a href="#" class="btn-link">
+                Conoce más sobre nosotros →
+            </a>
+        </div>
+    </section>
+
+    <!-- 
+    ============================================
+    FOOTER (AÑADIDO - necesario para completar la estructura)
+    ============================================
+    MÓVIL: Layout en columna. Enlaces con suficiente
+    espaciado vertical para ser tocables.
+    Información de contacto fácilmente accesible.
+    -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/logo.png" alt="CORSAIN Logo" width="120" height="40">
+            </div>
+            <div class="footer-links">
+                <a href="#">Inicio</a>
+                <a href="#">Servicios</a>
+                <a href="#">Contacto</a>
+                <a href="#">Aviso de Privacidad</a>
+            </div>
+            <p class="footer-copy">&copy; 2024 CORSAIN. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- 
+    SCRIPTS
+    defer: El script se descarga en paralelo y se ejecuta
+    después de que el HTML se ha parseado completamente.
+    Esto evita bloquear el renderizado en móviles.
+    -->
+    <script src="js/main.js" defer></script>
 </body>
-
 </html>
