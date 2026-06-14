@@ -70,7 +70,7 @@
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <!-- Ícono que aparece en la pestaña del navegador -->
     
-    <!-- CARGA DE FUENTES DE GOOGLE (MÉTODO 1: LINK) -->
+    <!-- CARGA DE FUENTES DE GOOGLE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- 
@@ -92,18 +92,9 @@
     <link rel="preload" as="image" href="assets/logo.png">
     
     <!-- ============================================ -->
-    <!-- ESTILOS CSS INTERNOS (MÉTODO 2: <style>)    -->
+    <!-- ESTILOS CSS INTERNOS                         -->
     <!-- ============================================ -->
     <style>
-        /* 
-            Aquí va todo el CSS que controla:
-            - Colores
-            - Tamaños
-            - Posiciones
-            - Animaciones
-            - Diseño responsive
-        */
-        
         /* ============================================ */
         /* 1. FUENTE DE RESPALDO (FALLBACK LOCAL)      */
         /* ============================================ */
@@ -129,7 +120,6 @@
             /* 
                 box-sizing: border-box → El padding y borde 
                 se INCLUYEN dentro del ancho/alto definido
-                Ejemplo: width: 200px + padding: 20px = 200px total (no 240px)
             */
         }
         
@@ -139,22 +129,17 @@
         
         :root {
             /* PALETA DE COLORES PRINCIPAL */
-            --color-azul-oscuro: #0b1f33;      /* Color principal */
-            --color-azul-medio: #0b3558;       /* Stats, overlays */
-            --color-azul-claro: #1b75d0;       /* Texto azul destacado */
-            --color-verde: #6fbf44;            /* Texto verde + detalles */
+            --color-azul-oscuro: #0b1f33;
+            --color-azul-medio: #0b3558;
+            --color-azul-claro: #1b75d0;
+            --color-verde: #6fbf44;
+            --color-verde-hover: #5da836;
             --color-blanco: #ffffff;
             --color-gris-claro: #f5f7fa;
+            --color-gris-texto: #2d3a4a;
             
             /* TIPOGRAFÍA */
             --font-principal: 'Manrope', 'Manrope Fallback', 'Arial', sans-serif;
-            /* 
-                Orden de prioridad:
-                1. Manrope (Google)
-                2. Manrope Fallback (local)
-                3. Arial (sistema)
-                4. sans-serif (genérica del sistema)
-            */
             
             /* TAMAÑOS DE FUENTE */
             --texto-xs: 0.75rem;    /* 12px */
@@ -181,10 +166,10 @@
             /* ALTURAS FIJAS */
             --header-altura: 90px;
             
-            /* BREAKPOINTS (referencia para media queries) */
-            --movil: 480px;
-            --tablet: 768px;
-            --desktop: 1024px;
+            /* SOMBRAS */
+            --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --sombra-media: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --sombra-fuerte: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         
         /* ============================================ */
@@ -193,7 +178,6 @@
         
         html {
             scroll-behavior: smooth;
-            /* Hace que los enlaces ancla tengan desplazamiento suave */
         }
         
         body {
@@ -201,62 +185,48 @@
             color: var(--color-azul-oscuro);
             line-height: 1.6;
             overflow-x: hidden;
-            /* 
-                overflow-x: hidden → Evita scroll horizontal 
-                (común en móviles cuando algo se desborda)
-            */
             -webkit-font-smoothing: antialiased;
-            /* Mejora el renderizado de texto en macOS e iOS */
             -moz-osx-font-smoothing: grayscale;
         }
         
         /* ============================================ */
-        /* 5. ESTILOS DE HEADER (BARRA SUPERIOR)       */
+        /* 5. HEADER (BARRA SUPERIOR)                  */
         /* ============================================ */
         
         header {
             position: fixed;
-            /* 
-                fixed → Permanece fijo en la pantalla aunque hagas scroll
-                SIEMPRE visible
-            */
             top: 0;
             width: 100%;
             height: var(--header-altura);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
-            /* 
-                backdrop-filter → Efecto de desenfoque
-                Lo que está DETRÁS del header se ve borroso
-                Como un vidrio esmerilado
-            */
             -webkit-backdrop-filter: blur(15px);
-            /* Soporte para Safari */
             z-index: 1000;
-            /* 
-                z-index → Controla qué elemento está "encima" de otros
-                1000 = número alto, se asegura que esté sobre casi todo
-            */
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             padding: 0 6%;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: all 0.3s ease;
         }
         
         /* LOGO */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            z-index: 1001;
+        }
+        
         .logo {
             width: 200px;
             height: auto;
-            /* height: auto mantiene la proporción */
             max-width: 100%;
-            /* No será más grande que su contenedor */
             transition: transform 0.3s ease;
         }
         
         .logo:hover {
-            transform: scale(1.02);
-            /* Ligero aumento al pasar el mouse */
+            transform: scale(1.03);
         }
         
         /* LOGO DE RESPALDO (si la imagen falla) */
@@ -266,6 +236,7 @@
             font-weight: 800;
             color: var(--color-azul-oscuro);
             text-decoration: none;
+            letter-spacing: -0.5px;
         }
         
         /* ============================================ */
@@ -275,58 +246,50 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 0;
         }
         
-        /* BOTÓN HAMBURGUESA (MÓVIL) - Ocualto por defecto */
+        /* BOTÓN HAMBURGUESA (MÓVIL) */
         .hamburguesa {
             display: none;
-            /* Solo visible en móviles */
             background: none;
             border: none;
             cursor: pointer;
-            padding: 10px;
+            padding: 12px;
             min-width: 44px;
             min-height: 44px;
-            /* 
-                Tamaño mínimo 44x44px = Recomendación de Apple/Google
-                para que sea fácil tocar con el dedo
-            */
             z-index: 1001;
             position: relative;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .hamburguesa:hover {
+            background: rgba(0, 0, 0, 0.05);
         }
         
         /* LÍNEAS DEL ÍCONO HAMBURGUESA */
         .hamburguesa-linea {
             display: block;
-            width: 28px;
-            height: 3px;
+            width: 26px;
+            height: 2.5px;
             background: var(--color-azul-oscuro);
             margin: 5px 0;
             border-radius: 3px;
             transition: all 0.3s ease;
-            /* 
-                transition → Hace que los cambios sean animados
-                all → aplica a todas las propiedades
-                0.3s → duración de la animación
-                ease → curva de aceleración suave
-            */
         }
         
-        /* ANIMACIÓN DEL HAMBURGUESA CUANDO SE ABRE */
+        /* ANIMACIÓN A "X" CUANDO ESTÁ ACTIVO */
         .hamburguesa.activo .hamburguesa-linea:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px);
-            /* Rota 45° y se mueve para formar la X */
+            transform: rotate(45deg) translate(5px, 5px);
         }
         
         .hamburguesa.activo .hamburguesa-linea:nth-child(2) {
             opacity: 0;
-            /* La línea del medio desaparece */
+            transform: translateX(-10px);
         }
         
         .hamburguesa.activo .hamburguesa-linea:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px);
-            /* Rota -45° para completar la X */
+            transform: rotate(-45deg) translate(5px, -5px);
         }
         
         /* LISTA DE ENLACES */
@@ -345,15 +308,12 @@
             padding: 8px 0;
             position: relative;
             transition: color 0.3s;
+            white-space: nowrap;
         }
         
-        /* LÍNEA DECORATIVA BAJO EL ENLACE (EFECTO HOVER) */
+        /* LÍNEA DECORATIVA BAJO EL ENLACE */
         .nav-lista a::after {
             content: '';
-            /* 
-                ::after → Pseudo-elemento, crea algo DESPUÉS del contenido
-                content: '' → Necesario aunque esté vacío para que funcione
-            */
             position: absolute;
             bottom: 0;
             left: 0;
@@ -361,13 +321,11 @@
             height: 2px;
             background: var(--color-verde);
             transition: width 0.3s ease;
-            /* Comienza con ancho 0 y crece al hacer hover */
         }
         
         .nav-lista a:hover::after,
         .nav-lista a.activo::after {
             width: 100%;
-            /* Al hacer hover o si está activo, la línea ocupa todo el ancho */
         }
         
         .nav-lista a:hover {
@@ -381,7 +339,7 @@
         .btn-header {
             background: var(--color-azul-oscuro);
             color: var(--color-blanco);
-            border: none;
+            border: 2px solid var(--color-azul-oscuro);
             padding: 14px 32px;
             border-radius: var(--radio-xl);
             font-weight: 700;
@@ -389,35 +347,49 @@
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
-            /* Evita que el texto se divida en varias líneas */
             min-height: 48px;
             font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
         
         .btn-header:hover {
             background: var(--color-azul-medio);
+            border-color: var(--color-azul-medio);
             transform: translateY(-2px);
-            /* Se eleva ligeramente */
             box-shadow: 0 8px 25px rgba(11, 31, 51, 0.3);
         }
         
         .btn-header:active {
             transform: translateY(0);
-            /* Vuelve a su posición al hacer clic */
         }
         
         /* ============================================ */
-        /* 8. SECCIÓN HERO (BANNER PRINCIPAL)          */
+        /* 8. OVERLAY DEL MENÚ MÓVIL                  */
+        /* ============================================ */
+        
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .menu-overlay.activo {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* ============================================ */
+        /* 9. SECCIÓN HERO (BANNER PRINCIPAL)          */
         /* ============================================ */
         
         .hero {
             position: relative;
             min-height: 100vh;
-            /* 
-                vh = viewport height (altura de la ventana)
-                100vh = exactamente la altura de la pantalla
-                min-height asegura que sea AL MENOS eso
-            */
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -432,23 +404,14 @@
             width: 55%;
             height: 100%;
             object-fit: cover;
-            /* 
-                object-fit: cover → La imagen cubre todo el espacio
-                recortándose si es necesario (no se deforma)
-            */
             object-position: center;
             z-index: 1;
         }
         
-        /* OVERLAY GRADIENTE (MEJORA LEGIBILIDAD) */
+        /* OVERLAY GRADIENTE */
         .hero-overlay {
             position: absolute;
             inset: 0;
-            /* 
-                inset: 0 → Equivale a:
-                top: 0; right: 0; bottom: 0; left: 0;
-                Cubre TODO el elemento padre
-            */
             background: linear-gradient(
                 90deg,
                 rgba(255, 255, 255, 0.97) 0%,
@@ -462,7 +425,6 @@
         .hero-content {
             position: relative;
             z-index: 3;
-            /* Mayor que el overlay para estar encima */
             width: 60%;
             padding: 120px 7% 60px;
         }
@@ -471,7 +433,7 @@
         .tag {
             color: var(--color-verde);
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             font-size: var(--texto-sm);
             margin-bottom: 20px;
@@ -481,20 +443,10 @@
         /* TÍTULO PRINCIPAL */
         h1 {
             font-size: clamp(2.5rem, 5vw, 5rem);
-            /* 
-                clamp(mínimo, preferido, máximo) → Tamaño fluido
-                - Mínimo: 2.5rem (40px) - nunca más pequeño
-                - Preferido: 5vw (5% del ancho de pantalla)
-                - Máximo: 5rem (80px) - nunca más grande
-            */
             line-height: 1.05;
             margin-bottom: 25px;
             font-weight: 800;
             animation: fadeInUp 0.8s ease-out 0.2s both;
-            /* 
-                0.2s both → Espera 0.2s antes de animar
-                both → Mantiene el estado inicial y final
-            */
         }
         
         .azul { color: var(--color-azul-claro); }
@@ -506,7 +458,7 @@
             line-height: 1.7;
             max-width: 550px;
             margin-bottom: 35px;
-            color: #2d3a4a;
+            color: var(--color-gris-texto);
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
         
@@ -515,17 +467,15 @@
             from {
                 opacity: 0;
                 transform: translateY(30px);
-                /* Comienza invisible y 30px más abajo */
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
-                /* Termina visible y en su posición */
             }
         }
         
         /* ============================================ */
-        /* 9. ICONOS DE SERVICIOS                      */
+        /* 10. ICONOS DE SERVICIOS                     */
         /* ============================================ */
         
         .servicios-iconos {
@@ -533,7 +483,6 @@
             gap: 40px;
             margin: 35px 0;
             flex-wrap: wrap;
-            /* Permite que bajen a la siguiente línea si no caben */
             animation: fadeInUp 0.8s ease-out 0.6s both;
         }
         
@@ -541,24 +490,32 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-weight: 700;
             font-size: var(--texto-xs);
             transition: transform 0.3s;
             cursor: default;
+            padding: 10px;
+            border-radius: var(--radio-sm);
         }
         
         .servicio-item:hover {
             transform: translateY(-5px);
+            background: rgba(111, 191, 68, 0.05);
         }
         
         .servicio-icono {
             font-size: 2.5rem;
             display: block;
+            transition: transform 0.3s;
+        }
+        
+        .servicio-item:hover .servicio-icono {
+            transform: scale(1.1);
         }
         
         /* ============================================ */
-        /* 10. BOTONES DE ACCIÓN                       */
+        /* 11. BOTONES DE ACCIÓN                       */
         /* ============================================ */
         
         .botones {
@@ -570,7 +527,7 @@
         
         .btn-primario,
         .btn-secundario {
-            padding: 16px 32px;
+            padding: 16px 36px;
             border-radius: var(--radio-xl);
             font-weight: 700;
             font-family: var(--font-principal);
@@ -579,6 +536,12 @@
             min-height: 56px;
             font-size: 0.95rem;
             border: 2px solid transparent;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
         }
         
         .btn-primario {
@@ -590,8 +553,8 @@
         .btn-primario:hover {
             background: var(--color-azul-medio);
             border-color: var(--color-azul-medio);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(11, 31, 51, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(11, 31, 51, 0.35);
         }
         
         .btn-secundario {
@@ -603,16 +566,59 @@
         .btn-secundario:hover {
             background: var(--color-azul-oscuro);
             color: var(--color-blanco);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(11, 31, 51, 0.2);
         }
         
         .btn-primario:active,
         .btn-secundario:active {
             transform: translateY(0);
+            box-shadow: none;
         }
         
         /* ============================================ */
-        /* 11. ESTADÍSTICAS                            */
+        /* 12. BOTÓN WHATSAPP FLOTANTE                */
+        /* ============================================ */
+        
+        .whatsapp-flotante {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-flotante:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
+        /* ============================================ */
+        /* 13. ESTADÍSTICAS                            */
         /* ============================================ */
         
         .stats {
@@ -625,9 +631,9 @@
             color: var(--color-blanco);
             display: flex;
             justify-content: space-around;
-            padding: 30px;
+            padding: 30px 20px;
             border-radius: var(--radio-md);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            box-shadow: var(--sombra-fuerte);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             flex-wrap: wrap;
@@ -635,7 +641,12 @@
         
         .stat-item {
             text-align: center;
-            padding: 10px;
+            padding: 10px 15px;
+            transition: transform 0.3s;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-3px);
         }
         
         .stat-item strong {
@@ -647,11 +658,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* 
-                Texto con gradiente:
-                -webkit-background-clip: text → El fondo se recorta al texto
-                -webkit-text-fill-color: transparent → Deja ver el gradiente
-            */
         }
         
         .stat-item p {
@@ -674,7 +680,7 @@
         }
         
         /* ============================================ */
-        /* 12. SECCIÓN INGENIERÍA SOSTENIBLE           */
+        /* 14. SECCIÓN INGENIERÍA SOSTENIBLE           */
         /* ============================================ */
         
         .body-section {
@@ -688,7 +694,7 @@
         .body-section img {
             width: 50%;
             border-radius: var(--radio-md);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--sombra-media);
             transition: transform 0.3s;
             height: auto;
         }
@@ -707,7 +713,7 @@
         .body-content p {
             font-size: var(--texto-lg);
             line-height: 1.8;
-            color: #2d3a4a;
+            color: var(--color-gris-texto);
             margin-bottom: 25px;
         }
         
@@ -718,71 +724,85 @@
             border-bottom: 2px solid transparent;
             padding-bottom: 4px;
             transition: all 0.3s;
+            font-size: var(--texto-base);
         }
         
         .btn-link:hover {
             border-bottom-color: var(--color-verde);
+            color: var(--color-verde-hover);
         }
         
         /* ============================================ */
-        /* 13. FOOTER                                  */
+        /* 15. FOOTER                                  */
         /* ============================================ */
         
         footer {
             background: var(--color-azul-oscuro);
             color: var(--color-blanco);
-            padding: 50px 8% 30px;
-            text-align: center;
+            padding: 60px 8% 30px;
         }
         
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--color-verde);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        
+        .footer-col p,
+        .footer-col a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95rem;
+            line-height: 2;
+            transition: color 0.3s;
+        }
+        
+        .footer-col a:hover {
+            color: var(--color-verde);
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
         }
         
         .footer-logo img {
             width: 180px;
             height: auto;
             filter: brightness(0) invert(1);
-            /* 
-                filter → Aplica efectos visuales
-                brightness(0) → Oscurece a negro
-                invert(1) → Invierte colores (negro → blanco)
-                Resultado: Logo en blanco
-            */
         }
         
-        .footer-links {
+        .footer-contacto {
             display: flex;
-            gap: 25px;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
         }
         
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-            padding: 5px 0;
-        }
-        
-        .footer-links a:hover {
-            color: var(--color-verde);
+        .footer-contacto a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         .footer-copy {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 25px;
+            text-align: center;
             font-size: var(--texto-sm);
             opacity: 0.7;
         }
         
         /* ============================================ */
-        /* 14. MEDIA QUERIES (DISEÑO RESPONSIVE)       */
+        /* 16. MEDIA QUERIES (DISEÑO RESPONSIVE)       */
         /* ============================================ */
         
         /* TABLET GRANDE Y DESKTOP PEQUEÑO */
@@ -798,6 +818,10 @@
             h1 {
                 font-size: clamp(2.2rem, 4.5vw, 4rem);
             }
+            
+            .body-section {
+                gap: 40px;
+            }
         }
         
         /* TABLET Y MÓVILES GRANDES */
@@ -809,7 +833,7 @@
             }
             
             .logo {
-                width: 150px;
+                width: 140px;
             }
             
             /* MOSTRAR HAMBURGUESA */
@@ -817,54 +841,49 @@
                 display: block;
             }
             
-            /* OCULTAR BOTÓN HEADER EN MÓVIL */
+            /* OCULTAR BOTÓN HEADER */
             .btn-header {
                 display: none;
             }
             
-            /* NAVEGACIÓN MÓVIL (MENÚ LATERAL) */
+            /* NAVEGACIÓN MÓVIL (MENÚ LATERAL DERECHO) */
             .nav-lista {
                 display: none;
-                /* Oculto por defecto */
                 position: fixed;
                 top: 0;
                 right: -100%;
-                /* Fuera de pantalla a la derecha */
                 width: 280px;
                 height: 100vh;
+                height: 100dvh;
                 background: white;
                 flex-direction: column;
                 padding: 100px 30px 40px;
                 gap: 30px;
                 box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
-                transition: right 0.4s ease;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                 z-index: 999;
+                overflow-y: auto;
             }
             
             .nav-lista.activo {
                 right: 0;
-                /* Se desliza dentro de la pantalla */
                 display: flex;
             }
             
             .nav-lista a {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                padding: 10px 0;
             }
             
             /* HERO MÓVIL */
             .hero {
                 min-height: 100dvh;
-                /* 
-                    dvh = dynamic viewport height
-                    Mejor que vh en móviles porque se ajusta
-                    cuando la barra del navegador aparece/desaparece
-                */
                 padding: 80px 0 40px;
             }
             
             .hero-bg {
                 width: 100%;
-                opacity: 0.25;
+                opacity: 0.2;
                 object-position: 65% center;
             }
             
@@ -884,20 +903,22 @@
             }
             
             h1 {
-                font-size: clamp(2rem, 7vw, 3rem);
+                font-size: clamp(1.8rem, 6vw, 2.8rem);
             }
             
             .descripcion {
                 margin: 0 auto 30px;
+                font-size: var(--texto-base);
             }
             
             .servicios-iconos {
                 justify-content: center;
-                gap: 25px;
+                gap: 20px;
             }
             
             .servicio-item {
-                flex: 0 0 calc(50% - 25px);
+                flex: 0 0 calc(50% - 20px);
+                min-width: 120px;
             }
             
             .botones {
@@ -909,6 +930,7 @@
             .btn-secundario {
                 width: 100%;
                 max-width: 350px;
+                text-align: center;
             }
             
             /* STATS EN COLUMNA */
@@ -920,6 +942,7 @@
                 margin: 40px 5% 0;
                 flex-direction: column;
                 gap: 20px;
+                padding: 25px;
             }
             
             .curva {
@@ -950,30 +973,56 @@
                 margin: 0 auto 20px;
             }
             
-            /* FOOTER MÓVIL */
-            .footer-content {
-                flex-direction: column;
+            /* WHATSAPP FLOTANTE */
+            .whatsapp-flotante {
+                width: 55px;
+                height: 55px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.8rem;
+            }
+            
+            /* FOOTER */
+            .footer-grid {
+                grid-template-columns: 1fr;
                 text-align: center;
+                gap: 30px;
+            }
+            
+            .footer-contacto {
+                align-items: center;
             }
         }
         
         /* MÓVILES PEQUEÑOS */
         @media (max-width: 480px) {
+            header {
+                height: 60px;
+            }
+            
             .logo {
                 width: 120px;
             }
             
+            .logo-fallback {
+                font-size: 1.4rem;
+            }
+            
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.7rem;
             }
             
             .tag {
                 font-size: 0.7rem;
-                letter-spacing: 1px;
+                letter-spacing: 2px;
             }
             
             .servicios-iconos {
                 gap: 15px;
+            }
+            
+            .servicio-item {
+                font-size: 0.7rem;
             }
             
             .servicio-icono {
@@ -994,36 +1043,40 @@
                 font-size: 0.85rem;
                 min-height: 48px;
             }
+            
+            .whatsapp-flotante {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 1.6rem;
+            }
         }
         
         /* MÓVILES MUY PEQUEÑOS */
         @media (max-width: 360px) {
-            header {
-                height: 60px;
-            }
-            
             .logo {
                 width: 100px;
             }
             
             h1 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             
             .servicio-item {
                 font-size: 0.65rem;
             }
+            
+            .nav-lista {
+                width: 260px;
+            }
         }
         
         /* ============================================ */
-        /* 15. PREFERENCIAS DE ACCESIBILIDAD           */
+        /* 17. PREFERENCIAS DE ACCESIBILIDAD           */
         /* ============================================ */
         
         @media (prefers-reduced-motion: reduce) {
-            /* 
-                Si el usuario configuró "reducir movimiento" en su sistema,
-                desactiva todas las animaciones
-            */
             *,
             *::before,
             *::after {
@@ -1049,36 +1102,24 @@
         }
         
         /* ============================================ */
-        /* 16. UTILIDADES ADICIONALES                  */
+        /* 18. UTILIDADES ADICIONALES                  */
         /* ============================================ */
         
-        /* Selección de texto personalizada */
         ::selection {
             background: var(--color-verde);
             color: white;
         }
         
-        /* Estilo de focus para teclado (accesibilidad) */
         :focus-visible {
             outline: 3px solid var(--color-verde);
             outline-offset: 3px;
             border-radius: 4px;
         }
         
-        /* OVERLAY PARA CUANDO EL MENÚ ESTÁ ABIERTO */
-        .menu-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .menu-overlay.activo {
-            display: block;
-            opacity: 1;
+        /* Contenedor para centrar contenido */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
     </style>
@@ -1096,7 +1137,7 @@
     <!-- ============================================ -->
     <header>
         <!-- LOGO CON FALLBACK -->
-        <a href="#" id="logoLink">
+        <a href="#inicio" class="logo-link" id="logoLink" aria-label="CORSAIN - Ir al inicio">
             <!-- Intenta cargar la imagen del logo -->
             <img 
                 src="assets/logo.png" 
@@ -1106,13 +1147,9 @@
                 width="200" 
                 height="50"
                 onerror="handleLogoError()"
-                <!-- 
-                    onerror → Si la imagen no carga, ejecuta esta función
-                    Muestra un texto de respaldo en lugar del logo roto
-                -->
             >
             <!-- Texto de respaldo (oculto hasta que falle la imagen) -->
-            <span id="logoFallbackText" style="display:none; font-family:'Manrope',sans-serif; font-size:1.6rem; font-weight:800; color:#0b1f33;">
+            <span id="logoFallbackText" class="logo-fallback">
                 CORSAIN
             </span>
         </a>
@@ -1125,10 +1162,6 @@
                 id="hamburguesaBtn" 
                 aria-label="Abrir menú de navegación" 
                 aria-expanded="false"
-                <!-- 
-                    aria-label → Descripción para lectores de pantalla
-                    aria-expanded → Indica si el menú está abierto o cerrado
-                -->
             >
                 <span class="hamburguesa-linea"></span>
                 <span class="hamburguesa-linea"></span>
@@ -1147,10 +1180,24 @@
         </nav>
         
         <!-- BOTÓN DE ACCIÓN (oculto en móvil) -->
-        <button class="btn-header" onclick="location.href='#contacto'">
+        <button class="btn-header" onclick="window.location.href='#contacto'">
             HABLEMOS →
         </button>
     </header>
+
+    <!-- ============================================ -->
+    <!-- BOTÓN WHATSAPP FLOTANTE                     -->
+    <!-- ============================================ -->
+    <a 
+        href="https://wa.me/51943376472" 
+        class="whatsapp-flotante" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        aria-label="Chatear por WhatsApp"
+        title="Contáctanos por WhatsApp"
+    >
+        💬
+    </a>
 
     <!-- ============================================ -->
     <!-- SECCIÓN HERO (BANNER PRINCIPAL)             -->
@@ -1162,15 +1209,11 @@
             alt="" 
             class="hero-bg"
             loading="eager"
-            <!-- 
-                alt="" → Vacío porque es decorativa
-                loading="eager" → Se carga inmediatamente (es la imagen principal)
-            -->
+            decoding="async"
         >
         
         <!-- OVERLAY PARA MEJORAR LEGIBILIDAD -->
         <div class="hero-overlay" aria-hidden="true"></div>
-        <!-- aria-hidden="true" → Los lectores de pantalla ignoran este elemento -->
         
         <!-- CONTENIDO PRINCIPAL -->
         <div class="hero-content">
@@ -1212,10 +1255,10 @@
             
             <!-- BOTONES DE ACCIÓN -->
             <div class="botones">
-                <button class="btn-primario" onclick="location.href='#servicios'">
+                <button class="btn-primario" onclick="window.location.href='#servicios'">
                     CONOCE NUESTROS SERVICIOS →
                 </button>
-                <button class="btn-secundario" onclick="location.href='#proyectos'">
+                <button class="btn-secundario" onclick="window.location.href='#proyectos'">
                     VER PROYECTOS →
                 </button>
             </div>
@@ -1252,18 +1295,22 @@
         <!-- Imagen con lazy loading -->
         <img 
             src="assets/body.jpg" 
-            alt="Ingeniería sostenible CORSAIN"
+            alt="Ingeniería sostenible CORSAIN - Proyectos de saneamiento y agua potable"
             loading="lazy"
-            <!-- loading="lazy" → Carga la imagen solo cuando está cerca de verse -->
+            decoding="async"
+            width="600"
+            height="400"
         >
         
         <div class="body-content">
             <h2>Ingeniería sostenible para el futuro</h2>
             <p>
                 Desarrollamos soluciones hidráulicas,
-                sanitarias y ambientales con enfoque técnico.
+                sanitarias y ambientales con enfoque técnico
+                que garantizan eficiencia y responsabilidad
+                con el medio ambiente.
             </p>
-            <a href="#" class="btn-link">Conoce más sobre nosotros →</a>
+            <a href="#servicios" class="btn-link">Conoce más sobre nosotros →</a>
         </div>
     </section>
 
@@ -1272,25 +1319,46 @@
     <!-- ============================================ -->
     <footer id="contacto">
         <div class="container">
-            <div class="footer-content">
-                <!-- Logo en blanco -->
-                <div class="footer-logo">
-                    <img 
-                        src="assets/logo.png" 
-                        alt="CORSAIN Logo" 
-                        width="180"
-                        loading="lazy"
-                    >
+            <div class="footer-grid">
+                <!-- Columna 1: Logo e info -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img 
+                            src="assets/logo.png" 
+                            alt="CORSAIN Logo" 
+                            width="180"
+                            loading="lazy"
+                        >
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">
+                        Ingeniería y Soluciones en Saneamiento, Agua Potable e Instalaciones Sanitarias.
+                    </p>
                 </div>
                 
-                <!-- Enlaces del footer -->
-                <div class="footer-links">
-                    <a href="#inicio">Inicio</a>
-                    <a href="#nosotros">Nosotros</a>
-                    <a href="#servicios">Servicios</a>
-                    <a href="#proyectos">Proyectos</a>
-                    <a href="#contacto">Contacto</a>
-                    <a href="#">Aviso de Privacidad</a>
+                <!-- Columna 2: Enlaces rápidos -->
+                <div class="footer-col">
+                    <h3>ENLACES</h3>
+                    <a href="#inicio">Inicio</a><br>
+                    <a href="#nosotros">Nosotros</a><br>
+                    <a href="#servicios">Servicios</a><br>
+                    <a href="#proyectos">Proyectos</a><br>
+                    <a href="#sostenibilidad">Sostenibilidad</a>
+                </div>
+                
+                <!-- Columna 3: Contacto -->
+                <div class="footer-col">
+                    <h3>CONTACTO</h3>
+                    <div class="footer-contacto">
+                        <a href="mailto:gerencia@corsainsac.com">
+                            ✉️ gerencia@corsainsac.com
+                        </a>
+                        <a href="https://wa.me/51943376472" target="_blank" rel="noopener noreferrer">
+                            💬 +51 943 376 472
+                        </a>
+                        <p style="margin-top: 10px;">
+                            📍 Perú
+                        </p>
+                    </div>
                 </div>
             </div>
             
@@ -1317,6 +1385,7 @@
             if (logoImg && fallbackSpan) {
                 logoImg.style.display = 'none';
                 fallbackSpan.style.display = 'inline-block';
+                console.warn('⚠️ Logo no cargado - usando texto de respaldo');
             }
         }
         
@@ -1324,7 +1393,6 @@
         window.addEventListener('DOMContentLoaded', function() {
             const logo = document.getElementById('mainLogo');
             if (logo && logo.complete && logo.naturalWidth === 0) {
-                // Si la imagen ya intentó cargar y falló (ancho natural = 0)
                 handleLogoError();
             }
         });
@@ -1398,9 +1466,13 @@
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Ajuste para el header fijo
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -1413,13 +1485,14 @@
         function verificarImagenesCriticas() {
             const imagenes = [
                 { src: 'assets/fig_head.jpg', nombre: 'Hero background' },
-                { src: 'assets/body.jpg', nombre: 'Body section' }
+                { src: 'assets/body.jpg', nombre: 'Body section' },
+                { src: 'assets/logo.png', nombre: 'Logo principal' }
             ];
             
             imagenes.forEach(img => {
                 const testImg = new Image();
-                testImg.onload = () => console.log(`✓ ${img.nombre} cargada correctamente`);
-                testImg.onerror = () => console.warn(`⚠️ ${img.nombre} no encontrada - usando respaldo visual`);
+                testImg.onload = () => console.log(`✅ ${img.nombre} cargada correctamente`);
+                testImg.onerror = () => console.warn(`❌ ${img.nombre} no encontrada en ${img.src}`);
                 testImg.src = img.src;
             });
         }
@@ -1428,15 +1501,11 @@
         window.addEventListener('DOMContentLoaded', verificarImagenesCriticas);
         
         // ==============================================
-        // 5. DETECCIÓN DE DISPOSITIVO MÓVIL
+        // 5. DETECCIÓN DE DISPOSITIVO Y AJUSTES
         // ==============================================
         
-        function esDispositivoMovil() {
-            return window.innerWidth <= 768;
-        }
-        
-        // Ajustes al cambiar el tamaño de la ventana
         let ventanaAnterior = window.innerWidth;
+        
         window.addEventListener('resize', () => {
             const ventanaActual = window.innerWidth;
             
@@ -1453,25 +1522,14 @@
         });
         
         // ==============================================
-        // 6. OPTIMIZACIÓN DE RENDIMIENTO
+        // 6. CONSOLA DE DESARROLLO
         // ==============================================
         
-        // Debounce para eventos de scroll/resize (evita ejecutar demasiadas veces)
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-        
         console.log('🚀 CORSAIN - Ingeniería y Soluciones');
-        console.log('📱 Versión optimizada para móviles');
-        console.log('✅ Funcionalidades cargadas correctamente');
+        console.log('📱 Versión 2026 - Optimizada para móviles');
+        console.log('📧 Contacto: gerencia@corsainsac.com');
+        console.log('📞 WhatsApp: +51 943 376 472');
+        console.log('✅ Todas las funcionalidades cargadas correctamente');
     </script>
 
 </body>
