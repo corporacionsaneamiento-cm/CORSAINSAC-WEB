@@ -1,401 +1,50 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+/* Ejemplo de estilos responsive que complementan el HTML */
+.nav-menu {
+    position: relative;
 }
 
-
-body{
-
-font-family:'Manrope',sans-serif;
-color:#0b1f33;
+.hamburger {
+    display: none; /* Oculto en desktop, visible en móvil */
+    background: none;
+    border: none;
+    padding: 12px;
+    min-width: 44px;
+    min-height: 44px;
 }
 
-
-
-.header{
-
-position:absolute;
-top:0;
-width:100%;
-height:90px;
-
-display:flex;
-align-items:center;
-justify-content:space-between;
-
-padding:20px 6%;
-
-z-index:10;
-
-}
-
-
-
-.logo{
-
-width:220px;
-
-}
-
-
-
-nav{
-
-display:flex;
-gap:35px;
-
-}
-
-
-nav a{
-
-text-decoration:none;
-color:#0b1f33;
-font-weight:700;
-
-}
-
-
-
-.btn-header{
-
-
-background:#0b1f33;
-color:white;
-
-border:none;
-
-padding:16px 35px;
-
-border-radius:40px;
-
-font-weight:700;
-
-}
-
-
-
-
-
-.hero{
-
-
-height:100vh;
-
-position:relative;
-
-overflow:hidden;
-
-display:flex;
-
-align-items:center;
-
-
-}
-
-
-
-.hero-bg{
-
-position:absolute;
-
-width:100%;
-height:100%;
-
-object-fit:cover;
-
-}
-
-
-
-.hero-overlay{
-
-position:absolute;
-
-inset:0;
-
-background:
-
-linear-gradient(
-90deg,
-rgba(255,255,255,.96) 0%,
-rgba(255,255,255,.65) 35%,
-rgba(255,255,255,.1) 70%
-);
-
-
-}
-
-
-
-.hero-content{
-
-
-position:relative;
-
-z-index:2;
-
-width:55%;
-
-padding-left:7%;
-
-
-}
-
-
-
-.tag{
-
-color:#6fbf44;
-
-font-weight:800;
-
-letter-spacing:2px;
-
-margin-bottom:25px;
-
-}
-
-
-
-h1{
-
-font-size:clamp(3rem,5vw,5rem);
-
-line-height:.95;
-
-margin-bottom:30px;
-
-}
-
-
-
-.blue{
-
-color:#1b75d0;
-
-}
-
-
-
-.green{
-
-color:#6fbf44;
-
-}
-
-
-
-.description{
-
-font-size:1.2rem;
-
-line-height:1.7;
-
-max-width:600px;
-
-}
-
-
-
-.service-icons{
-
-
-display:flex;
-
-gap:40px;
-
-margin:40px 0;
-
-}
-
-
-
-.service-icons div{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-font-weight:700;
-
-font-size:12px;
-
-}
-
-
-
-.buttons{
-
-display:flex;
-
-gap:25px;
-
-}
-
-
-
-button{
-
-padding:18px 35px;
-
-border-radius:40px;
-
-border:none;
-
-background:#0b1f33;
-
-color:white;
-
-font-weight:700;
-
-}
-
-
-
-.outline{
-
-background:white;
-
-color:#0b1f33;
-
-border:2px solid #0b1f33;
-
-}
-
-
-
-
-
-.stats{
-
-
-position:absolute;
-
-bottom:40px;
-
-left:7%;
-
-right:7%;
-
-z-index:3;
-
-background:#0b3558;
-
-color:white;
-
-display:flex;
-
-justify-content:space-around;
-
-padding:30px;
-
-border-radius:20px;
-
-}
-
-
-
-.stats strong{
-
-font-size:35px;
-
-}
-
-
-
-.stats p{
-
-font-size:13px;
-
-}
-
-
-
-.curve{
-
-position:absolute;
-
-bottom:-80px;
-
-width:120%;
-
-height:180px;
-
-background:#6fbf44;
-
-border-radius:50%;
-
-}
-
-
-
-
-.body-section{
-
-
-padding:100px 8%;
-
-display:flex;
-
-gap:50px;
-
-align-items:center;
-
-}
-
-
-
-.body-section img{
-
-width:50%;
-
-border-radius:30px;
-
-}
-
-
-
-
-@media(max-width:900px){
-
-
-nav{
-
-display:none;
-
-}
-
-
-.hero-content{
-
-width:90%;
-
-}
-
-
-
-.stats{
-
-position:relative;
-
-flex-direction:column;
-
-gap:25px;
-
-}
-
-
-.hero{
-
-height:auto;
-
-padding:150px 0;
-
-}
-
-
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+    }
+    
+    .nav-list.active {
+        display: flex;
+    }
+    
+    .service-icons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero h1 {
+        font-size: clamp(1.8rem, 5vw, 3rem);
+    }
+    
+    .btn-header {
+        padding: 8px 16px;
+        min-height: 44px;
+    }
 }
