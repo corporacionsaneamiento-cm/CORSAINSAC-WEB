@@ -1,50 +1,914 @@
-/* Ejemplo de estilos responsive que complementan el HTML */
-.nav-menu {
-    position: relative;
+/* ============================================
+   RESET Y CONFIGURACIÓN GLOBAL
+   ============================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+/* ============================================
+   VARIABLES CSS (NUEVO)
+   Centraliza colores, tamaños y breakpoints
+   para mantener consistencia y facilitar cambios
+   ============================================ */
+:root {
+    /* Colores principales */
+    --color-primary: #0b1f33;
+    --color-primary-light: #0b3558;
+    --color-blue: #1b75d0;
+    --color-green: #6fbf44;
+    --color-white: #ffffff;
+    --color-gray-light: #f5f7fa;
+    
+    /* Tipografía */
+    --font-family: 'Manrope', sans-serif;
+    --font-weight-regular: 400;
+    --font-weight-semi: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    
+    /* Espaciados */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 40px;
+    --spacing-xl: 60px;
+    --spacing-2xl: 100px;
+    
+    /* Bordes */
+    --border-radius-sm: 20px;
+    --border-radius-md: 30px;
+    --border-radius-lg: 40px;
+    --border-radius-round: 50%;
+    
+    /* Transiciones */
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.3s ease;
+    
+    /* Breakpoints (para referencia, se usan en media queries) */
+    --mobile: 480px;
+    --tablet: 768px;
+    --desktop: 1024px;
+    --wide: 1200px;
+    
+    /* Altura del header */
+    --header-height: 90px;
+}
+
+/* ============================================
+   ESTILOS BASE DEL BODY
+   ============================================ */
+body {
+    font-family: var(--font-family);
+    color: var(--color-primary);
+    line-height: 1.6;
+    overflow-x: hidden; /* Previene scroll horizontal en móviles */
+    -webkit-font-smoothing: antialiased; /* Mejora renderizado en iOS */
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* ============================================
+   HEADER Y NAVEGACIÓN
+   ============================================ */
+.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 6%;
+    z-index: 10;
+    /* Fondo semitransparente para mejorar legibilidad en móviles */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px); /* Efecto glass en navegadores modernos */
+    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari/iOS */
+}
+
+/* LOGO */
+.logo {
+    width: 220px;
+    height: auto; /* Mantiene proporción */
+    max-width: 100%;
+    transition: transform var(--transition-smooth);
+}
+
+/* Efecto sutil al tocar el logo en móviles */
+.logo:active {
+    transform: scale(0.95);
+}
+
+/* NAVEGACIÓN DESKTOP */
+.nav-menu {
+    display: flex;
+    align-items: center;
+}
+
+/* Botón hamburguesa - oculto por defecto en desktop */
 .hamburger {
-    display: none; /* Oculto en desktop, visible en móvil */
+    display: none;
     background: none;
     border: none;
-    padding: 12px;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    z-index: 100;
+    /* Tamaño mínimo para target táctil (Apple y Google recomiendan 44px) */
     min-width: 44px;
     min-height: 44px;
 }
 
+/* Líneas del ícono hamburguesa */
+.hamburger-line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--color-primary);
+    margin: 5px 0;
+    transition: all var(--transition-smooth);
+    border-radius: 3px;
+}
+
+/* Animación del hamburguesa cuando está activo */
+.hamburger.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.nav-list {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+    position: relative;
+    padding: var(--spacing-xs) 0;
+    /* Transición suave para hover */
+    transition: color var(--transition-fast);
+}
+
+/* Línea decorativa debajo del enlace activo/hover */
+.nav-list a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-green);
+    transition: width var(--transition-smooth);
+}
+
+.nav-list a:hover::after,
+.nav-list a.active::after {
+    width: 100%;
+}
+
+.nav-list a:hover {
+    color: var(--color-green);
+}
+
+/* BOTÓN DEL HEADER */
+.btn-header {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: 16px 35px;
+    border-radius: var(--border-radius-lg);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    white-space: nowrap; /* Evita que el texto se rompa */
+    /* Tamaño mínimo para target táctil */
+    min-height: 44px;
+}
+
+.btn-header:hover {
+    background: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(11, 31, 51, 0.3);
+}
+
+.btn-header:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   SECCIÓN HERO
+   ============================================ */
+.hero {
+    height: 100vh;
+    min-height: 600px; /* Altura mínima para móviles pequeños */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* Imagen de fondo del hero */
+.hero-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center; /* Centro en desktop */
+    /* Transición suave para cuando cambia el srcset */
+    transition: opacity 0.5s ease;
+}
+
+/* Overlay gradiente para mejorar legibilidad del texto */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.96) 0%,
+        rgba(255, 255, 255, 0.65) 35%,
+        rgba(255, 255, 255, 0.1) 70%
+    );
+    z-index: 1;
+}
+
+/* Contenido del hero */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 55%;
+    padding-left: 7%;
+    /* Animación de entrada (se activa con JS) */
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tag/Etiqueta */
+.tag {
+    color: var(--color-green);
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+/* Título principal */
+h1 {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 30px;
+    font-weight: var(--font-weight-extrabold);
+}
+
+.blue {
+    color: var(--color-blue);
+}
+
+.green {
+    color: var(--color-green);
+}
+
+/* Descripción */
+.description {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 30px;
+    color: #2d3a4a; /* Ligero contraste para mejor legibilidad */
+}
+
+/* Iconos de servicios */
+.service-icons {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+    flex-wrap: wrap; /* Permite que fluyan en móviles */
+}
+
+.service-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: var(--font-weight-bold);
+    font-size: 12px;
+    gap: var(--spacing-xs);
+    transition: transform var(--transition-fast);
+}
+
+.service-icon-item:hover {
+    transform: translateY(-5px);
+}
+
+.icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.icon-label {
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* Botones de acción */
+.buttons {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap; /* Permite apilar en móviles */
+}
+
+/* Estilos base para botones */
+.btn-primary,
+.btn-outline {
+    padding: 18px 35px;
+    border-radius: var(--border-radius-lg);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    min-height: 56px; /* Buen tamaño táctil */
+    min-width: 200px;
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(11, 31, 51, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+/* Estados activos (móvil) */
+.btn-primary:active,
+.btn-outline:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Estadísticas */
+.stats {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: 7%;
+    right: 7%;
+    z-index: 3;
+    background: var(--color-primary-light);
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    /* Efecto glass */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.stat-item {
+    text-align: center;
+    transition: transform var(--transition-fast);
+}
+
+.stat-item:hover {
+    transform: scale(1.05);
+}
+
+.stat-item strong {
+    font-size: 35px;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: var(--font-weight-extrabold);
+    background: linear-gradient(135deg, var(--color-green), #8fd14f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-item p {
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+/* Curva decorativa */
+.curve {
+    position: absolute;
+    bottom: -80px;
+    width: 120%;
+    left: -10%;
+    height: 180px;
+    background: var(--color-green);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* ============================================
+   SECCIÓN BODY - INGENIERÍA SOSTENIBLE
+   ============================================ */
+.body-section {
+    padding: var(--spacing-2xl) 8%;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    background: var(--color-gray-light);
+    position: relative;
+    z-index: 0;
+}
+
+.body-section img {
+    width: 50%;
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition-smooth);
+    height: auto; /* Mantiene proporción */
+}
+
+.body-section img:hover {
+    transform: scale(1.02);
+}
+
+.body-content {
+    flex: 1;
+}
+
+.body-content h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-extrabold);
+    line-height: 1.2;
+}
+
+.body-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+    color: #2d3a4a;
+    max-width: 500px;
+}
+
+/* Enlace/botón adicional para mejor UX */
+.btn-link {
+    display: inline-block;
+    color: var(--color-green);
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+    margin-top: var(--spacing-sm);
+    transition: all var(--transition-smooth);
+    padding: var(--spacing-xs) 0;
+    border-bottom: 2px solid transparent;
+}
+
+.btn-link:hover {
+    border-bottom-color: var(--color-green);
+}
+
+.btn-link::after {
+    content: ' →';
+    transition: margin var(--transition-fast);
+}
+
+.btn-link:hover::after {
+    margin-left: var(--spacing-xs);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--spacing-xl) 8% var(--spacing-lg);
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo img {
+    width: 180px;
+    height: auto;
+    filter: brightness(0) invert(1); /* Hace el logo blanco */
+}
+
+.footer-links {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    padding: var(--spacing-xs) 0;
+}
+
+.footer-links a:hover {
+    color: var(--color-green);
+}
+
+.footer-copy {
+    width: 100%;
+    text-align: center;
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: var(--spacing-lg);
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* ============================================
+   MEDIA QUERIES - RESPONSIVE DESIGN
+   ============================================ */
+
+/* TABLET PEQUEÑA Y MÓVIL GRANDE (768px - 1024px) */
+@media (max-width: 1024px) {
+    .hero-content {
+        width: 65%;
+    }
+    
+    h1 {
+        font-size: clamp(2.2rem, 4vw, 3.5rem);
+    }
+    
+    .stats {
+        gap: 20px;
+        padding: 25px;
+    }
+    
+    .stat-item strong {
+        font-size: 28px;
+    }
+}
+
+/* TABLET Y MÓVILES (hasta 768px) */
 @media (max-width: 768px) {
+    /* Header adaptado */
+    .header {
+        padding: 15px 5%;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.95); /* Más opaco para legibilidad */
+    }
+    
+    .logo {
+        width: 160px;
+    }
+    
+    /* Mostrar botón hamburguesa */
     .hamburger {
         display: block;
     }
     
+    /* Navegación móvil */
     .nav-list {
         display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-lg);
+        z-index: 99;
+        /* Animación de entrada */
+        opacity: 0;
+        transition: opacity var(--transition-smooth);
     }
     
     .nav-list.active {
         display: flex;
+        opacity: 1;
+    }
+    
+    .nav-list a {
+        font-size: 1.5rem;
+        padding: var(--spacing-sm);
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Botón header oculto en móvil (se puede mostrar en menú) */
+    .btn-header {
+        display: none;
+    }
+    
+    /* Hero ajustes */
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 120px 0 60px;
+    }
+    
+    .hero-bg {
+        object-position: 65% center; /* Ajusta el foco de la imagen */
+    }
+    
+    .hero-overlay {
+        background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.97) 0%,
+            rgba(255, 255, 255, 0.85) 50%,
+            rgba(255, 255, 255, 0.3) 100%
+        );
+    }
+    
+    .hero-content {
+        width: 90%;
+        padding: 0 5%;
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        line-height: 1.15;
+    }
+    
+    .description {
+        margin: 0 auto var(--spacing-lg);
+        font-size: 1rem;
+    }
+    
+    /* Iconos - grid de 2 columnas */
+    .service-icons {
+        justify-content: center;
+        gap: var(--spacing-md);
+    }
+    
+    .service-icon-item {
+        flex: 0 0 calc(50% - var(--spacing-md));
+        padding: var(--spacing-sm);
+    }
+    
+    .icon {
+        font-size: 2.5rem;
+    }
+    
+    /* Botones apilados */
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .btn-primary,
+    .btn-outline {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    /* Estadísticas reposicionadas */
+    .stats {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        margin: var(--spacing-xl) 5%;
+        flex-direction: column;
+        gap: var(--spacing-md);
+        border-radius: var(--border-radius-md);
+    }
+    
+    .stat-item strong {
+        font-size: 32px;
+    }
+    
+    /* Curva ajustada */
+    .curve {
+        bottom: -40px;
+        height: 100px;
+        width: 150%;
+        left: -25%;
+    }
+    
+    /* Body section - layout vertical */
+    .body-section {
+        flex-direction: column;
+        padding: var(--spacing-xl) 5%;
+        gap: var(--spacing-lg);
+        text-align: center;
+    }
+    
+    .body-section img {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .body-content p {
+        margin: 0 auto var(--spacing-md);
+    }
+    
+    /* Footer apilado */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-md);
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+}
+
+/* MÓVILES PEQUEÑOS (hasta 480px) */
+@media (max-width: 480px) {
+    .logo {
+        width: 130px;
+    }
+    
+    .hero {
+        padding: 100px 0 40px;
+        min-height: 100dvh; /* dvh = dynamic viewport height, mejor en móviles */
+    }
+    
+    h1 {
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+    }
+    
+    .tag {
+        font-size: 12px;
+        letter-spacing: 1px;
     }
     
     .service-icons {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: var(--spacing-sm);
+    }
+    
+    .service-icon-item {
+        font-size: 11px;
+    }
+    
+    .icon {
+        font-size: 2rem;
     }
     
     .stats {
-        grid-template-columns: repeat(2, 1fr);
+        padding: 20px;
+        margin: var(--spacing-lg) 3%;
     }
     
-    .hero h1 {
-        font-size: clamp(1.8rem, 5vw, 3rem);
+    .stat-item strong {
+        font-size: 28px;
     }
     
-    .btn-header {
-        padding: 8px 16px;
-        min-height: 44px;
+    .stat-item p {
+        font-size: 11px;
     }
+    
+    .btn-primary,
+    .btn-outline {
+        padding: 15px 25px;
+        font-size: 14px;
+        min-height: 50px;
+    }
+    
+    .body-section h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* MÓVILES MUY PEQUEÑOS (hasta 360px) */
+@media (max-width: 360px) {
+    .header {
+        padding: 10px 4%;
+        height: 60px;
+    }
+    
+    .logo {
+        width: 110px;
+    }
+    
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    .service-icon-item {
+        font-size: 10px;
+    }
+    
+    .icon {
+        font-size: 1.8rem;
+    }
+}
+
+/* ============================================
+   ACCESIBILIDAD Y PREFERENCIAS DEL USUARIO
+   ============================================ */
+
+/* Reducción de movimiento (respetar preferencias del usuario) */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Modo oscuro (si el usuario lo prefiere) */
+@media (prefers-color-scheme: dark) {
+    /* Ajustes para modo oscuro si decides implementarlo */
+    /* Por ahora, los estilos se mantienen claros por el diseño */
+}
+
+/* Alto contraste (para accesibilidad) */
+@media (prefers-contrast: high) {
+    .btn-outline {
+        border-width: 3px;
+    }
+    
+    .description {
+        color: #000;
+    }
+}
+
+/* ============================================
+   UTILIDADES Y MEJORAS DE PERFORMANCE
+   ============================================ */
+
+/* Smooth scroll para mejor UX */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selección de texto personalizada */
+::selection {
+    background: var(--color-green);
+    color: var(--color-white);
+}
+
+/* Focus visible para navegación por teclado */
+:focus-visible {
+    outline: 3px solid var(--color-green);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Ocultar scrollbar en elementos con overflow (opcional) */
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
 }
