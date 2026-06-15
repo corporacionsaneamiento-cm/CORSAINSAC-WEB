@@ -603,6 +603,8 @@
         .footer-logo img {
             width: 180px;
             height: auto;
+            /* FILTRO CORREGIDO: Si tu logo es oscuro, mantén el filtro.
+               Si tu logo ya es blanco, elimina esta línea o usa brightness(1) invert(0) */
             filter: brightness(0) invert(1);
         }
         
@@ -631,15 +633,12 @@
             .hero-content {
                 width: 70%;
             }
-            
             .nav-lista {
                 gap: 25px;
             }
-            
             h1 {
                 font-size: clamp(2.2rem, 4.5vw, 4rem);
             }
-            
             .body-section {
                 gap: 40px;
             }
@@ -650,19 +649,15 @@
                 height: 70px;
                 padding: 0 5%;
             }
-            
             .logo {
                 width: 140px;
             }
-            
             .hamburguesa {
                 display: block;
             }
-            
             .btn-header {
                 display: none;
             }
-            
             .nav-lista {
                 display: none;
                 position: fixed;
@@ -680,28 +675,23 @@
                 z-index: 999;
                 overflow-y: auto;
             }
-            
             .nav-lista.activo {
                 right: 0;
                 display: flex;
             }
-            
             .nav-lista a {
                 font-size: 1.1rem;
                 padding: 10px 0;
             }
-            
             .hero {
                 min-height: 100dvh;
                 padding: 80px 0 40px;
             }
-            
             .hero-bg {
                 width: 100%;
                 opacity: 0.2;
                 object-position: 65% center;
             }
-            
             .hero-overlay {
                 background: linear-gradient(
                     180deg,
@@ -710,44 +700,36 @@
                     rgba(255, 255, 255, 0.7) 100%
                 );
             }
-            
             .hero-content {
                 width: 100%;
                 padding: 0 5%;
                 text-align: center;
             }
-            
             h1 {
                 font-size: clamp(1.8rem, 6vw, 2.8rem);
             }
-            
             .descripcion {
                 margin: 0 auto 30px;
                 font-size: var(--texto-base);
             }
-            
             .servicios-iconos {
                 justify-content: center;
                 gap: 20px;
             }
-            
             .servicio-item {
                 flex: 0 0 calc(50% - 20px);
                 min-width: 120px;
             }
-            
             .botones {
                 flex-direction: column;
                 align-items: center;
             }
-            
             .btn-primario,
             .btn-secundario {
                 width: 100%;
                 max-width: 350px;
                 text-align: center;
             }
-            
             .stats {
                 position: relative;
                 bottom: auto;
@@ -758,34 +740,28 @@
                 gap: 20px;
                 padding: 25px;
             }
-            
             .curva {
                 bottom: -40px;
                 height: 80px;
                 width: 130%;
                 left: -15%;
             }
-            
             .body-section {
                 flex-direction: column;
                 padding: 60px 5%;
                 gap: 35px;
             }
-            
             .body-section img {
                 width: 100%;
                 max-width: 500px;
                 margin: 0 auto;
             }
-            
             .body-content {
                 text-align: center;
             }
-            
             .body-content p {
                 margin: 0 auto 20px;
             }
-            
             .whatsapp-flotante {
                 width: 55px;
                 height: 55px;
@@ -793,13 +769,11 @@
                 right: 20px;
                 font-size: 1.8rem;
             }
-            
             .footer-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 30px;
             }
-            
             .footer-contacto {
                 align-items: center;
             }
@@ -809,51 +783,40 @@
             header {
                 height: 60px;
             }
-            
             .logo {
                 width: 120px;
             }
-            
             .logo-fallback {
                 font-size: 1.4rem;
             }
-            
             h1 {
                 font-size: 1.7rem;
             }
-            
             .tag {
                 font-size: 0.7rem;
                 letter-spacing: 2px;
             }
-            
             .servicios-iconos {
                 gap: 15px;
             }
-            
             .servicio-item {
                 font-size: 0.7rem;
             }
-            
             .servicio-icono {
                 font-size: 2rem;
             }
-            
             .stat-item strong {
                 font-size: 1.8rem;
             }
-            
             .stat-item p {
                 font-size: 0.7rem;
             }
-            
             .btn-primario,
             .btn-secundario {
                 padding: 14px 28px;
                 font-size: 0.85rem;
                 min-height: 48px;
             }
-            
             .whatsapp-flotante {
                 width: 50px;
                 height: 50px;
@@ -867,15 +830,12 @@
             .logo {
                 width: 100px;
             }
-            
             h1 {
                 font-size: 1.5rem;
             }
-            
             .servicio-item {
                 font-size: 0.65rem;
             }
-            
             .nav-lista {
                 width: 260px;
             }
@@ -889,7 +849,6 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
-            
             html {
                 scroll-behavior: auto;
             }
@@ -899,7 +858,6 @@
             .btn-secundario {
                 border-width: 3px;
             }
-            
             .descripcion {
                 color: #000;
             }
@@ -1034,7 +992,6 @@
             </div>
         </div>
         
-        <!-- CORRECCIÓN: Bloque de estadísticas completo -->
         <div class="stats">
             <div class="stat-item">
                 <strong>+20</strong>
@@ -1088,6 +1045,7 @@
                             src="assets/logo.png" 
                             alt="CORSAIN Logo" 
                             width="180"
+                            height="auto"
                             loading="lazy"
                         >
                     </div>
@@ -1176,7 +1134,6 @@
                 if (navLista.classList.contains('activo')) {
                     toggleMenu();
                 }
-                
                 navLista.querySelectorAll('a').forEach(l => l.classList.remove('activo'));
                 link.classList.add('activo');
             });
@@ -1191,7 +1148,6 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                
                 if (href === '#' || href === '') return;
                 
                 const target = document.querySelector(href);
@@ -1229,14 +1185,12 @@
         
         window.addEventListener('resize', () => {
             const ventanaActual = window.innerWidth;
-            
             if ((ventanaAnterior <= 768 && ventanaActual > 768) ||
                 (ventanaAnterior > 768 && ventanaActual <= 768)) {
                 if (navLista.classList.contains('activo')) {
                     toggleMenu();
                 }
             }
-            
             ventanaAnterior = ventanaActual;
         });
         
