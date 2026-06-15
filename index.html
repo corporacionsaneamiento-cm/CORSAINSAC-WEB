@@ -1,134 +1,35 @@
 <!DOCTYPE html>
-<!-- 
-    DOCTYPE html → Le dice al navegador que use el modo estándar HTML5
-    SIN ESTO: La página podría renderizarse en "modo quirks" y verse mal
--->
 <html lang="es">
-<!-- 
-    lang="es" → Indica que el contenido está en español
-    IMPORTANTE para: lectores de pantalla, traductores automáticos y SEO
--->
-
 <head>
-    <!-- 
-        <head> → Contiene metadatos y configuraciones que NO se ven directamente
-        pero son FUNDAMENTALES para el funcionamiento correcto
-    -->
-    
-    <!-- JUEGO DE CARACTERES UNIVERSAL -->
     <meta charset="UTF-8">
-    <!-- 
-        charset="UTF-8" → Permite usar caracteres especiales como: ñ, á, é, í, ó, ú, ü, ¿, ¡
-        SIN ESTO: Aparecerían símbolos extraños en lugar de tildes y eñes
-    -->
-    
-    <!-- CONFIGURACIÓN DE VISUALIZACIÓN EN MÓVILES -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 
-        viewport → CRUCIAL para móviles
-        width=device-width → El ancho de la página se ajusta al ancho del dispositivo
-        initial-scale=1.0 → Comienza sin zoom (nivel normal)
-        SIN ESTO: En celular se vería como una página de escritorio miniaturizada
-    -->
-    
-    <!-- TÍTULO DE LA PÁGINA (PESTAÑA DEL NAVEGADOR + GOOGLE) -->
     <title>CORSAIN | Ingeniería y Soluciones en Saneamiento</title>
-    <!-- 
-        Este texto aparece en:
-        - La pestaña del navegador
-        - Resultados de búsqueda de Google
-        - Cuando guardas la página en favoritos
-    -->
-    
-    <!-- COMPATIBILIDAD CON INTERNET EXPLORER -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Fuerza a IE a usar el mejor modo disponible -->
-    
-    <!-- DESCRIPCIÓN PARA BUSCADORES (SEO) -->
     <meta name="description" content="CORSAIN - Soluciones integrales en saneamiento, agua potable e instalaciones sanitarias. Más de 20 años de experiencia en ingeniería.">
-    <!-- 
-        Esta descripción aparece debajo del título en Google
-        Debe ser atractiva y contener palabras clave
-    -->
-    
-    <!-- COLOR DE LA BARRA DEL NAVEGADOR EN MÓVILES -->
     <meta name="theme-color" content="#0b1f33">
-    <!-- 
-        Cambia el color de la barra superior en Chrome Android
-        y en la barra de estado en iOS
-    -->
-    
-    <!-- META ETIQUETAS PARA iOS (APPLE) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Permite que la página funcione como una app al guardarla en inicio -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Estilo de la barra de estado en iOS -->
     <meta name="apple-mobile-web-app-title" content="CORSAIN">
-    <!-- Nombre corto que aparece bajo el ícono en iOS -->
-    
-    <!-- ICONO DE LA PÁGINA (FAVICON) -->
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-    <!-- Ícono que aparece en la pestaña del navegador -->
-    
-    <!-- CARGA DE FUENTES DE GOOGLE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- 
-        preconnect → Establece conexión temprana con servidores de Google
-        Mejora velocidad de carga de fuentes
-    -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- 
-        display=swap → Muestra texto con fuente del sistema mientras carga Manrope
-        Evita el "flash de texto invisible" (FOIT)
-    -->
-    
-    <!-- PRECARGA DE IMÁGENES CRÍTICAS (LCP OPTIMIZATION) -->
     <link rel="preload" as="image" href="assets/fig_head.jpg">
-    <!-- 
-        preload → Prioriza la carga de esta imagen sobre otros recursos
-        LCP = Largest Contentful Paint (métrica de velocidad de Google)
-    -->
     <link rel="preload" as="image" href="assets/logo.png">
-    
-    <!-- ============================================ -->
-    <!-- ESTILOS CSS INTERNOS                         -->
-    <!-- ============================================ -->
     <style>
-        /* ============================================ */
-        /* 1. FUENTE DE RESPALDO (FALLBACK LOCAL)      */
-        /* ============================================ */
-        
         @font-face {
             font-family: 'Manrope Fallback';
             src: local('Arial'), local('Helvetica Neue');
-            /* 
-                Si Manrope no carga desde Google, usa Arial
-                Esto evita que la página se vea sin texto
-            */
             font-weight: normal;
         }
-        
-        /* ============================================ */
-        /* 2. RESETEO GLOBAL (NORMALIZACIÓN)           */
-        /* ============================================ */
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* 
-                box-sizing: border-box → El padding y borde 
-                se INCLUYEN dentro del ancho/alto definido
-            */
         }
         
-        /* ============================================ */
-        /* 3. VARIABLES CSS (CUSTOM PROPERTIES)        */
-        /* ============================================ */
-        
         :root {
-            /* PALETA DE COLORES PRINCIPAL */
             --color-azul-oscuro: #0b1f33;
             --color-azul-medio: #0b3558;
             --color-azul-claro: #1b75d0;
@@ -137,44 +38,28 @@
             --color-blanco: #ffffff;
             --color-gris-claro: #f5f7fa;
             --color-gris-texto: #2d3a4a;
-            
-            /* TIPOGRAFÍA */
             --font-principal: 'Manrope', 'Manrope Fallback', 'Arial', sans-serif;
-            
-            /* TAMAÑOS DE FUENTE */
-            --texto-xs: 0.75rem;    /* 12px */
-            --texto-sm: 0.875rem;   /* 14px */
-            --texto-base: 1rem;     /* 16px */
-            --texto-lg: 1.125rem;   /* 18px */
-            --texto-xl: 1.25rem;    /* 20px */
-            
-            /* ESPACIADOS */
-            --espacio-xs: 0.5rem;   /* 8px */
-            --espacio-sm: 1rem;     /* 16px */
-            --espacio-md: 1.5rem;   /* 24px */
-            --espacio-lg: 2rem;     /* 32px */
-            --espacio-xl: 3rem;     /* 48px */
-            --espacio-2xl: 5rem;    /* 80px */
-            
-            /* BORDES REDONDEADOS */
+            --texto-xs: 0.75rem;
+            --texto-sm: 0.875rem;
+            --texto-base: 1rem;
+            --texto-lg: 1.125rem;
+            --texto-xl: 1.25rem;
+            --espacio-xs: 0.5rem;
+            --espacio-sm: 1rem;
+            --espacio-md: 1.5rem;
+            --espacio-lg: 2rem;
+            --espacio-xl: 3rem;
+            --espacio-2xl: 5rem;
             --radio-sm: 12px;
             --radio-md: 20px;
             --radio-lg: 30px;
             --radio-xl: 40px;
             --radio-redondo: 50%;
-            
-            /* ALTURAS FIJAS */
             --header-altura: 90px;
-            
-            /* SOMBRAS */
             --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.07);
             --sombra-media: 0 10px 30px rgba(0, 0, 0, 0.15);
             --sombra-fuerte: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
-        
-        /* ============================================ */
-        /* 4. ESTILOS BASE DEL CUERPO                  */
-        /* ============================================ */
         
         html {
             scroll-behavior: smooth;
@@ -188,10 +73,6 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        
-        /* ============================================ */
-        /* 5. HEADER (BARRA SUPERIOR)                  */
-        /* ============================================ */
         
         header {
             position: fixed;
@@ -210,7 +91,6 @@
             transition: all 0.3s ease;
         }
         
-        /* LOGO */
         .logo-link {
             display: flex;
             align-items: center;
@@ -229,7 +109,6 @@
             transform: scale(1.03);
         }
         
-        /* LOGO DE RESPALDO (si la imagen falla) */
         .logo-fallback {
             display: none;
             font-size: 1.8rem;
@@ -239,16 +118,11 @@
             letter-spacing: -0.5px;
         }
         
-        /* ============================================ */
-        /* 6. NAVEGACIÓN                              */
-        /* ============================================ */
-        
         nav {
             display: flex;
             align-items: center;
         }
         
-        /* BOTÓN HAMBURGUESA (MÓVIL) */
         .hamburguesa {
             display: none;
             background: none;
@@ -267,7 +141,6 @@
             background: rgba(0, 0, 0, 0.05);
         }
         
-        /* LÍNEAS DEL ÍCONO HAMBURGUESA */
         .hamburguesa-linea {
             display: block;
             width: 26px;
@@ -278,7 +151,6 @@
             transition: all 0.3s ease;
         }
         
-        /* ANIMACIÓN A "X" CUANDO ESTÁ ACTIVO */
         .hamburguesa.activo .hamburguesa-linea:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
         }
@@ -292,7 +164,6 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
         
-        /* LISTA DE ENLACES */
         .nav-lista {
             display: flex;
             list-style: none;
@@ -311,7 +182,6 @@
             white-space: nowrap;
         }
         
-        /* LÍNEA DECORATIVA BAJO EL ENLACE */
         .nav-lista a::after {
             content: '';
             position: absolute;
@@ -331,10 +201,6 @@
         .nav-lista a:hover {
             color: var(--color-verde);
         }
-        
-        /* ============================================ */
-        /* 7. BOTÓN DEL HEADER                        */
-        /* ============================================ */
         
         .btn-header {
             background: var(--color-azul-oscuro);
@@ -363,10 +229,6 @@
             transform: translateY(0);
         }
         
-        /* ============================================ */
-        /* 8. OVERLAY DEL MENÚ MÓVIL                  */
-        /* ============================================ */
-        
         .menu-overlay {
             display: none;
             position: fixed;
@@ -383,10 +245,6 @@
             opacity: 1;
         }
         
-        /* ============================================ */
-        /* 9. SECCIÓN HERO (BANNER PRINCIPAL)          */
-        /* ============================================ */
-        
         .hero {
             position: relative;
             min-height: 100vh;
@@ -396,7 +254,6 @@
             background: linear-gradient(135deg, #f8f9fb 0%, #e8ecf1 100%);
         }
         
-        /* IMAGEN DE FONDO */
         .hero-bg {
             position: absolute;
             right: 0;
@@ -408,7 +265,6 @@
             z-index: 1;
         }
         
-        /* OVERLAY GRADIENTE */
         .hero-overlay {
             position: absolute;
             inset: 0;
@@ -421,7 +277,6 @@
             z-index: 2;
         }
         
-        /* CONTENIDO DEL HERO */
         .hero-content {
             position: relative;
             z-index: 3;
@@ -429,7 +284,6 @@
             padding: 120px 7% 60px;
         }
         
-        /* ETIQUETA SUPERIOR */
         .tag {
             color: var(--color-verde);
             font-weight: 800;
@@ -440,7 +294,6 @@
             animation: fadeInUp 0.6s ease-out;
         }
         
-        /* TÍTULO PRINCIPAL */
         h1 {
             font-size: clamp(2.5rem, 5vw, 5rem);
             line-height: 1.05;
@@ -452,7 +305,6 @@
         .azul { color: var(--color-azul-claro); }
         .verde { color: var(--color-verde); }
         
-        /* DESCRIPCIÓN */
         .descripcion {
             font-size: var(--texto-lg);
             line-height: 1.7;
@@ -462,7 +314,6 @@
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
         
-        /* ANIMACIÓN DE ENTRADA */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -473,10 +324,6 @@
                 transform: translateY(0);
             }
         }
-        
-        /* ============================================ */
-        /* 10. ICONOS DE SERVICIOS                     */
-        /* ============================================ */
         
         .servicios-iconos {
             display: flex;
@@ -513,10 +360,6 @@
         .servicio-item:hover .servicio-icono {
             transform: scale(1.1);
         }
-        
-        /* ============================================ */
-        /* 11. BOTONES DE ACCIÓN                       */
-        /* ============================================ */
         
         .botones {
             display: flex;
@@ -576,10 +419,6 @@
             box-shadow: none;
         }
         
-        /* ============================================ */
-        /* 12. BOTÓN WHATSAPP FLOTANTE                */
-        /* ============================================ */
-        
         .whatsapp-flotante {
             position: fixed;
             bottom: 30px;
@@ -616,10 +455,6 @@
                 box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
             }
         }
-        
-        /* ============================================ */
-        /* 13. ESTADÍSTICAS                            */
-        /* ============================================ */
         
         .stats {
             position: absolute;
@@ -667,7 +502,6 @@
             opacity: 0.9;
         }
         
-        /* CURVA DECORATIVA */
         .curva {
             position: absolute;
             bottom: -60px;
@@ -678,10 +512,6 @@
             border-radius: 50%;
             z-index: 1;
         }
-        
-        /* ============================================ */
-        /* 14. SECCIÓN INGENIERÍA SOSTENIBLE           */
-        /* ============================================ */
         
         .body-section {
             padding: 120px 8% 100px;
@@ -731,10 +561,6 @@
             border-bottom-color: var(--color-verde);
             color: var(--color-verde-hover);
         }
-        
-        /* ============================================ */
-        /* 15. FOOTER                                  */
-        /* ============================================ */
         
         footer {
             background: var(--color-azul-oscuro);
@@ -801,11 +627,6 @@
             opacity: 0.7;
         }
         
-        /* ============================================ */
-        /* 16. MEDIA QUERIES (DISEÑO RESPONSIVE)       */
-        /* ============================================ */
-        
-        /* TABLET GRANDE Y DESKTOP PEQUEÑO */
         @media (max-width: 1024px) {
             .hero-content {
                 width: 70%;
@@ -824,9 +645,7 @@
             }
         }
         
-        /* TABLET Y MÓVILES GRANDES */
         @media (max-width: 768px) {
-            /* HEADER MÓVIL */
             header {
                 height: 70px;
                 padding: 0 5%;
@@ -836,17 +655,14 @@
                 width: 140px;
             }
             
-            /* MOSTRAR HAMBURGUESA */
             .hamburguesa {
                 display: block;
             }
             
-            /* OCULTAR BOTÓN HEADER */
             .btn-header {
                 display: none;
             }
             
-            /* NAVEGACIÓN MÓVIL (MENÚ LATERAL DERECHO) */
             .nav-lista {
                 display: none;
                 position: fixed;
@@ -875,7 +691,6 @@
                 padding: 10px 0;
             }
             
-            /* HERO MÓVIL */
             .hero {
                 min-height: 100dvh;
                 padding: 80px 0 40px;
@@ -933,7 +748,6 @@
                 text-align: center;
             }
             
-            /* STATS EN COLUMNA */
             .stats {
                 position: relative;
                 bottom: auto;
@@ -952,7 +766,6 @@
                 left: -15%;
             }
             
-            /* BODY SECTION EN COLUMNA */
             .body-section {
                 flex-direction: column;
                 padding: 60px 5%;
@@ -973,7 +786,6 @@
                 margin: 0 auto 20px;
             }
             
-            /* WHATSAPP FLOTANTE */
             .whatsapp-flotante {
                 width: 55px;
                 height: 55px;
@@ -982,7 +794,6 @@
                 font-size: 1.8rem;
             }
             
-            /* FOOTER */
             .footer-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -994,7 +805,6 @@
             }
         }
         
-        /* MÓVILES PEQUEÑOS */
         @media (max-width: 480px) {
             header {
                 height: 60px;
@@ -1053,7 +863,6 @@
             }
         }
         
-        /* MÓVILES MUY PEQUEÑOS */
         @media (max-width: 360px) {
             .logo {
                 width: 100px;
@@ -1072,10 +881,6 @@
             }
         }
         
-        /* ============================================ */
-        /* 17. PREFERENCIAS DE ACCESIBILIDAD           */
-        /* ============================================ */
-        
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -1090,7 +895,6 @@
             }
         }
         
-        /* MODO CONTRASTE ALTO */
         @media (prefers-contrast: high) {
             .btn-secundario {
                 border-width: 3px;
@@ -1100,10 +904,6 @@
                 color: #000;
             }
         }
-        
-        /* ============================================ */
-        /* 18. UTILIDADES ADICIONALES                  */
-        /* ============================================ */
         
         ::selection {
             background: var(--color-verde);
@@ -1116,29 +916,17 @@
             border-radius: 4px;
         }
         
-        /* Contenedor para centrar contenido */
         .container {
             max-width: 1400px;
             margin: 0 auto;
         }
-        
     </style>
 </head>
-
 <body>
-
-    <!-- ============================================ -->
-    <!-- OVERLAY DEL MENÚ MÓVIL                       -->
-    <!-- ============================================ -->
     <div class="menu-overlay" id="menuOverlay"></div>
-
-    <!-- ============================================ -->
-    <!-- HEADER (BARRA SUPERIOR FIJA)                 -->
-    <!-- ============================================ -->
+    
     <header>
-        <!-- LOGO CON FALLBACK -->
         <a href="#inicio" class="logo-link" id="logoLink" aria-label="CORSAIN - Ir al inicio">
-            <!-- Intenta cargar la imagen del logo -->
             <img 
                 src="assets/logo.png" 
                 alt="CORSAIN Logo" 
@@ -1148,15 +936,10 @@
                 height="50"
                 onerror="handleLogoError()"
             >
-            <!-- Texto de respaldo (oculto hasta que falle la imagen) -->
-            <span id="logoFallbackText" class="logo-fallback">
-                CORSAIN
-            </span>
+            <span id="logoFallbackText" class="logo-fallback">CORSAIN</span>
         </a>
         
-        <!-- NAVEGACIÓN PRINCIPAL -->
         <nav>
-            <!-- BOTÓN HAMBURGUESA (solo visible en móvil) -->
             <button 
                 class="hamburguesa" 
                 id="hamburguesaBtn" 
@@ -1168,7 +951,6 @@
                 <span class="hamburguesa-linea"></span>
             </button>
             
-            <!-- LISTA DE ENLACES -->
             <ul class="nav-lista" id="navLista">
                 <li><a href="#inicio" class="activo">Inicio</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
@@ -1179,15 +961,11 @@
             </ul>
         </nav>
         
-        <!-- BOTÓN DE ACCIÓN (oculto en móvil) -->
         <button class="btn-header" onclick="window.location.href='#contacto'">
             HABLEMOS →
         </button>
     </header>
 
-    <!-- ============================================ -->
-    <!-- BOTÓN WHATSAPP FLOTANTE                     -->
-    <!-- ============================================ -->
     <a 
         href="https://wa.me/51943376472" 
         class="whatsapp-flotante" 
@@ -1199,11 +977,7 @@
         💬
     </a>
 
-    <!-- ============================================ -->
-    <!-- SECCIÓN HERO (BANNER PRINCIPAL)             -->
-    <!-- ============================================ -->
     <section id="inicio" class="hero">
-        <!-- IMAGEN DE FONDO -->
         <img 
             src="assets/fig_head.jpg" 
             alt="" 
@@ -1212,10 +986,8 @@
             decoding="async"
         >
         
-        <!-- OVERLAY PARA MEJORAR LEGIBILIDAD -->
         <div class="hero-overlay" aria-hidden="true"></div>
         
-        <!-- CONTENIDO PRINCIPAL -->
         <div class="hero-content">
             <p class="tag">INGENIERÍA QUE TRANSFORMA</p>
             
@@ -1233,7 +1005,6 @@
                 y promueven el uso responsable del agua.
             </p>
             
-            <!-- ICONOS DE SERVICIOS -->
             <div class="servicios-iconos" role="list" aria-label="Servicios principales">
                 <div class="servicio-item" role="listitem">
                     <span class="servicio-icono" aria-hidden="true">💧</span>
@@ -1253,7 +1024,6 @@
                 </div>
             </div>
             
-            <!-- BOTONES DE ACCIÓN -->
             <div class="botones">
                 <button class="btn-primario" onclick="window.location.href='#servicios'">
                     CONOCE NUESTROS SERVICIOS →
@@ -1264,17 +1034,30 @@
             </div>
         </div>
         
-        <!-- ESTADÍSTICAS -->
-                
-        <!-- CURVA DECORATIVA -->
+        <!-- CORRECCIÓN: Bloque de estadísticas completo -->
+        <div class="stats">
+            <div class="stat-item">
+                <strong>+20</strong>
+                <p>AÑOS DE EXPERIENCIA</p>
+            </div>
+            <div class="stat-item">
+                <strong>+250</strong>
+                <p>PROYECTOS EJECUTADOS</p>
+            </div>
+            <div class="stat-item">
+                <strong>+1M</strong>
+                <p>PERSONAS BENEFICIADAS</p>
+            </div>
+            <div class="stat-item">
+                <strong>∞</strong>
+                <p>COMPROMISO FUTURO</p>
+            </div>
+        </div>
+        
         <div class="curva" aria-hidden="true"></div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- SECCIÓN INGENIERÍA SOSTENIBLE               -->
-    <!-- ============================================ -->
     <section id="nosotros" class="body-section">
-        <!-- Imagen con lazy loading -->
         <img 
             src="assets/body.jpg" 
             alt="Ingeniería sostenible CORSAIN - Proyectos de saneamiento y agua potable"
@@ -1296,13 +1079,9 @@
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- FOOTER (PIE DE PÁGINA)                      -->
-    <!-- ============================================ -->
     <footer id="contacto">
         <div class="container">
             <div class="footer-grid">
-                <!-- Columna 1: Logo e info -->
                 <div class="footer-col">
                     <div class="footer-logo">
                         <img 
@@ -1317,7 +1096,6 @@
                     </p>
                 </div>
                 
-                <!-- Columna 2: Enlaces rápidos -->
                 <div class="footer-col">
                     <h3>ENLACES</h3>
                     <a href="#inicio">Inicio</a><br>
@@ -1327,7 +1105,6 @@
                     <a href="#sostenibilidad">Sostenibilidad</a>
                 </div>
                 
-                <!-- Columna 3: Contacto -->
                 <div class="footer-col">
                     <h3>CONTACTO</h3>
                     <div class="footer-contacto">
@@ -1344,23 +1121,14 @@
                 </div>
             </div>
             
-            <!-- Copyright -->
             <p class="footer-copy">
                 &copy; 2026 CORSAIN — Ingeniería y Soluciones. Todos los derechos reservados.
             </p>
         </div>
     </footer>
 
-    <!-- ============================================ -->
-    <!-- JAVASCRIPT (INTERACTIVIDAD)                  -->
-    <!-- ============================================ -->
     <script>
-        // ==============================================
-        // 1. MANEJO DE ERROR DEL LOGO (FALLBACK)
-        // ==============================================
-        
         function handleLogoError() {
-            // Si la imagen del logo no carga, mostrar texto en su lugar
             const logoImg = document.getElementById('mainLogo');
             const fallbackSpan = document.getElementById('logoFallbackText');
             
@@ -1371,7 +1139,6 @@
             }
         }
         
-        // Verificar el logo al cargar la página
         window.addEventListener('DOMContentLoaded', function() {
             const logo = document.getElementById('mainLogo');
             if (logo && logo.complete && logo.naturalWidth === 0) {
@@ -1379,76 +1146,57 @@
             }
         });
         
-        // ==============================================
-        // 2. MENÚ HAMBURGUESA (MÓVIL)
-        // ==============================================
-        
         const hamburguesaBtn = document.getElementById('hamburguesaBtn');
         const navLista = document.getElementById('navLista');
         const menuOverlay = document.getElementById('menuOverlay');
         
-        // Función para alternar el menú
         function toggleMenu() {
             const isOpen = navLista.classList.contains('activo');
             
             if (isOpen) {
-                // CERRAR MENÚ
                 navLista.classList.remove('activo');
                 hamburguesaBtn.classList.remove('activo');
                 menuOverlay.classList.remove('activo');
                 hamburguesaBtn.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = ''; // Permitir scroll
+                document.body.style.overflow = '';
             } else {
-                // ABRIR MENÚ
                 navLista.classList.add('activo');
                 hamburguesaBtn.classList.add('activo');
                 menuOverlay.classList.add('activo');
                 hamburguesaBtn.setAttribute('aria-expanded', 'true');
-                document.body.style.overflow = 'hidden'; // Bloquear scroll
+                document.body.style.overflow = 'hidden';
             }
         }
         
-        // Evento: clic en botón hamburguesa
         hamburguesaBtn.addEventListener('click', toggleMenu);
-        
-        // Evento: clic en overlay (fondo oscuro) cierra el menú
         menuOverlay.addEventListener('click', toggleMenu);
         
-        // Cerrar menú al hacer clic en un enlace
         navLista.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLista.classList.contains('activo')) {
                     toggleMenu();
                 }
                 
-                // Actualizar enlace activo
                 navLista.querySelectorAll('a').forEach(l => l.classList.remove('activo'));
                 link.classList.add('activo');
             });
         });
         
-        // Cerrar menú con tecla Escape (accesibilidad)
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && navLista.classList.contains('activo')) {
                 toggleMenu();
             }
         });
         
-        // ==============================================
-        // 3. SCROLL SUAVE PARA ENLACES INTERNOS
-        // ==============================================
-        
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 
-                // Si es "#" o está vacío, no hacer nada
                 if (href === '#' || href === '') return;
                 
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
-                    // Ajuste para el header fijo
                     const headerHeight = document.querySelector('header').offsetHeight;
                     const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                     
@@ -1459,10 +1207,6 @@
                 }
             });
         });
-        
-        // ==============================================
-        // 4. VERIFICACIÓN DE IMÁGENES CRÍTICAS
-        // ==============================================
         
         function verificarImagenesCriticas() {
             const imagenes = [
@@ -1479,22 +1223,15 @@
             });
         }
         
-        // Ejecutar verificación al cargar
         window.addEventListener('DOMContentLoaded', verificarImagenesCriticas);
-        
-        // ==============================================
-        // 5. DETECCIÓN DE DISPOSITIVO Y AJUSTES
-        // ==============================================
         
         let ventanaAnterior = window.innerWidth;
         
         window.addEventListener('resize', () => {
             const ventanaActual = window.innerWidth;
             
-            // Si cambió de desktop a móvil o viceversa
             if ((ventanaAnterior <= 768 && ventanaActual > 768) ||
                 (ventanaAnterior > 768 && ventanaActual <= 768)) {
-                // Cerrar menú si estaba abierto
                 if (navLista.classList.contains('activo')) {
                     toggleMenu();
                 }
@@ -1503,16 +1240,11 @@
             ventanaAnterior = ventanaActual;
         });
         
-        // ==============================================
-        // 6. CONSOLA DE DESARROLLO
-        // ==============================================
-        
         console.log('🚀 CORSAIN - Ingeniería y Soluciones');
         console.log('📱 Versión 2026 - Optimizada para móviles');
         console.log('📧 Contacto: gerencia@corsainsac.com');
         console.log('📞 WhatsApp: +51 943 376 472');
         console.log('✅ Todas las funcionalidades cargadas correctamente');
     </script>
-
 </body>
 </html>
