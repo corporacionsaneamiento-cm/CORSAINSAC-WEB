@@ -456,52 +456,6 @@
             }
         }
         
-        .stats {
-            position: absolute;
-            bottom: 40px;
-            left: 5%;
-            right: 5%;
-            z-index: 3;
-            background: var(--color-azul-medio);
-            color: var(--color-blanco);
-            display: flex;
-            justify-content: space-around;
-            padding: 30px 20px;
-            border-radius: var(--radio-md);
-            box-shadow: var(--sombra-fuerte);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            flex-wrap: wrap;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 10px 15px;
-            transition: transform 0.3s;
-        }
-        
-        .stat-item:hover {
-            transform: translateY(-3px);
-        }
-        
-        .stat-item strong {
-            font-size: 2.2rem;
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--color-verde), #8fd14f);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .stat-item p {
-            font-size: var(--texto-xs);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-        
         .curva {
             position: absolute;
             bottom: -60px;
@@ -603,9 +557,6 @@
         .footer-logo img {
             width: 180px;
             height: auto;
-            /* FILTRO CORREGIDO: Si tu logo es oscuro, mantén el filtro.
-               Si tu logo ya es blanco, elimina esta línea o usa brightness(1) invert(0) */
-            filter: brightness(0) invert(1);
         }
         
         .footer-contacto {
@@ -730,16 +681,6 @@
                 max-width: 350px;
                 text-align: center;
             }
-            .stats {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                right: auto;
-                margin: 40px 5% 0;
-                flex-direction: column;
-                gap: 20px;
-                padding: 25px;
-            }
             .curva {
                 bottom: -40px;
                 height: 80px;
@@ -804,12 +745,6 @@
             }
             .servicio-icono {
                 font-size: 2rem;
-            }
-            .stat-item strong {
-                font-size: 1.8rem;
-            }
-            .stat-item p {
-                font-size: 0.7rem;
             }
             .btn-primario,
             .btn-secundario {
@@ -989,25 +924,6 @@
                 <button class="btn-secundario" onclick="window.location.href='#proyectos'">
                     VER PROYECTOS →
                 </button>
-            </div>
-        </div>
-        
-        <div class="stats">
-            <div class="stat-item">
-                <strong>+20</strong>
-                <p>AÑOS DE EXPERIENCIA</p>
-            </div>
-            <div class="stat-item">
-                <strong>+250</strong>
-                <p>PROYECTOS EJECUTADOS</p>
-            </div>
-            <div class="stat-item">
-                <strong>+1M</strong>
-                <p>PERSONAS BENEFICIADAS</p>
-            </div>
-            <div class="stat-item">
-                <strong>∞</strong>
-                <p>COMPROMISO FUTURO</p>
             </div>
         </div>
         
